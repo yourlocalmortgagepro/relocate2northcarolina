@@ -188,6 +188,20 @@ nav { background: var(--navy); padding: 0 40px; display: flex; justify-content: 
 .btn-white { border: 1.5px solid rgba(255,255,255,0.35); color: var(--white); padding: 12px 22px; border-radius: 8px; font-weight: 600; font-size: 14px; display: inline-block; transition: background 0.2s; }
 .btn-white:hover { background: rgba(255,255,255,0.08); color: var(--white); }
 
+/* WEATHER CHART */
+.weather-chart { margin-top: 16px; overflow-x: auto; }
+.weather-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.weather-table th { background: var(--navy); color: var(--gold); padding: 8px 6px; text-align: center; font-weight: 700; font-size: 11px; }
+.weather-table td { padding: 8px 6px; text-align: center; border-bottom: 1px solid var(--border); }
+.weather-table tr:last-child td { border-bottom: none; }
+.weather-table .high { color: #B33A3A; font-weight: 700; }
+.weather-table .low { color: #1a5a8a; font-weight: 700; }
+.weather-table .month { font-weight: 700; color: var(--navy); }
+.temp-bar-wrap { display: flex; align-items: center; gap: 6px; justify-content: center; }
+.temp-bar { height: 8px; border-radius: 4px; display: inline-block; min-width: 4px; }
+.temp-bar.high { background: #e07070; }
+.temp-bar.low { background: #7090c0; }
+
 /* RESET BTN */
 .reset-btn { display: block; margin: 20px auto 0; background: none; border: 1.5px solid var(--border); padding: 11px 28px; border-radius: 8px; font-size: 14px; font-weight: 600; color: var(--muted); cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: all 0.2s; }
 .reset-btn:hover { border-color: var(--navy); color: var(--navy); }
@@ -461,6 +475,9 @@ function renderMagazine(d, fromCity, toCity, name) {
         <div class="mag-tagline">${d.tagline || ''}</div>
         <div class="mag-pills">${pillsHtml}</div>
       </div>
+      <div style="background:rgba(200,149,42,0.12); border-top:1px solid rgba(200,149,42,0.25); padding:10px 30px; text-align:center;">
+        <p style="font-size:11px; color:rgba(255,255,255,0.55); margin:0;">⚠️ AI-Generated Guide — For informational purposes only. Verify all details independently before making decisions.</p>
+      </div>
       <div class="mag-footer">
         <span>Dennis Fields · Movement Mortgage · NMLS #1407951</span>
         <span>relocate2northcarolina.com</span>
@@ -535,6 +552,36 @@ function renderMagazine(d, fromCity, toCity, name) {
     </div>
 
     <div class="sec">
+      <div class="sec-eyebrow">Annual Calendar</div>
+      <div class="sec-title">Events & Festivals in ${toCity}</div>
+      <div class="sec-body">
+        <p style="margin-bottom:10px;">Here are the signature annual events that make this community come alive throughout the year.</p>
+        <ul>${li(d.annual_events)}</ul>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-eyebrow">Year-Round Climate</div>
+      <div class="sec-title">Weather in ${toCity}</div>
+      <div class="sec-body">
+        <p style="margin-bottom:16px;">${d.weather_summary || ''}</p>
+        <div class="weather-chart">
+          <table class="weather-table">
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th>
+                <th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th>
+              </tr>
+            </thead>
+            <tbody id="weather-body-${toCity.replace(/[^a-z]/gi,'').toLowerCase()}">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
       <div class="sec-eyebrow">Who Is This City Best For?</div>
       <div class="sec-title">Life in ${toCity} by Lifestyle</div>
       <div class="sec-body">
@@ -575,8 +622,63 @@ function renderMagazine(d, fromCity, toCity, name) {
       </div>
     </div>
 
+    <div style="background:#F7F5F0; border:1px solid #E2DDD5; border-left:4px solid #C8952A; border-radius:0 10px 10px 0; padding:16px 20px; margin-top:16px;">
+      <p style="font-size:12px; color:#5A5A5A; line-height:1.7; margin:0;">
+        <strong style="color:#0C2340;">AI-Generated Content Disclaimer:</strong> This relocation guide was created using artificial intelligence and is intended for general informational purposes only. While we strive for accuracy, some details including restaurant names, school information, church directories, hospital rankings, and local statistics may not reflect current conditions. Always verify important information independently before making relocation or financial decisions. Tax rates, home prices, and cost of living figures are approximate and subject to change. <strong>This is not financial, legal, or real estate advice.</strong> For mortgage guidance specific to your situation, contact Dennis Fields directly at <a href="https://calendly.com/dennisfieldsmortgagepro" style="color:#C8952A;">calendly.com/dennisfieldsmortgagepro</a>. All loans subject to approval. Equal Housing Lender. Dennis Fields · Movement Mortgage · NMLS #1407951.
+      </p>
+    </div>
+
     <button class="reset-btn" onclick="resetGuide()">Generate a New Guide</button>
   `;
+
+  // Render weather chart from hardcoded API data
+  const weatherData = {
+    'greensboro':    { highs:[49,53,62,72,79,86,89,88,82,72,62,52], lows:[29,31,39,48,57,65,69,68,61,49,39,31] },
+    'winstonsalem':  { highs:[48,52,61,71,78,85,88,87,81,71,61,51], lows:[28,30,38,47,56,64,68,67,60,48,38,30] },
+    'highpoint':     { highs:[49,53,62,72,79,86,89,88,82,72,62,52], lows:[29,31,39,48,57,65,69,68,61,49,39,31] },
+    'charlotte':     { highs:[51,55,64,73,81,88,91,90,83,73,63,53], lows:[31,33,41,50,59,67,71,70,63,51,41,33] },
+    'raleigh':       { highs:[50,54,63,72,80,87,90,88,82,72,62,52], lows:[29,31,39,48,57,65,70,69,62,50,40,31] },
+    'durham':        { highs:[50,54,63,72,80,87,90,88,82,72,62,52], lows:[29,31,39,48,57,65,70,69,62,50,40,31] },
+    'chapelhill':    { highs:[50,54,63,72,80,87,90,88,82,72,62,52], lows:[29,31,39,48,57,65,70,69,62,50,40,31] },
+    'cary':          { highs:[50,54,63,72,80,87,90,88,82,72,62,52], lows:[29,31,39,48,57,65,70,69,62,50,40,31] },
+    'wilmington':    { highs:[55,58,65,73,80,86,90,89,84,75,67,58], lows:[35,37,44,52,61,69,73,72,66,55,45,37] },
+    'asheville':     { highs:[46,50,58,67,74,81,84,83,77,67,57,48], lows:[24,26,33,41,50,58,62,61,54,43,34,26] },
+    'fayetteville':  { highs:[52,56,64,74,81,88,91,89,83,73,64,54], lows:[31,33,40,49,58,66,70,69,62,51,41,33] },
+    'concord':       { highs:[51,55,64,73,81,88,91,90,83,73,63,53], lows:[31,33,41,50,59,67,71,70,63,51,41,33] },
+    'gastonia':      { highs:[51,55,64,73,81,88,91,90,83,73,63,53], lows:[31,33,41,50,59,67,71,70,63,51,41,33] },
+    'jacksonville':  { highs:[55,58,65,73,80,87,90,89,84,75,67,57], lows:[34,36,43,51,60,68,72,71,65,54,44,36] },
+    'apex':          { highs:[50,54,63,72,80,87,90,88,82,72,62,52], lows:[29,31,39,48,57,65,70,69,62,50,40,31] },
+    'huntersville':  { highs:[51,55,64,73,81,88,91,90,83,73,63,53], lows:[31,33,41,50,59,67,71,70,63,51,41,33] },
+    'burlington':    { highs:[49,53,62,72,79,86,89,88,82,72,62,52], lows:[29,31,39,48,57,65,69,68,61,49,39,31] },
+    'rockymount':    { highs:[51,55,63,73,80,87,90,89,83,73,64,53], lows:[29,31,38,48,57,65,69,68,62,50,40,31] },
+    'wilson':        { highs:[51,55,63,73,80,87,90,89,83,73,64,53], lows:[29,31,38,48,57,65,69,68,62,50,40,31] },
+    'mooresville':   { highs:[51,55,64,73,81,88,91,90,83,73,63,53], lows:[31,33,41,50,59,67,71,70,63,51,41,33] }
+  };
+
+  var cityKey = toCity.toLowerCase().replace(/[^a-z]/g,'').replace('northcarolina','').replace('nc','');
+  var wdata = null;
+  for (var k in weatherData) {
+    if (cityKey.indexOf(k) !== -1 || k.indexOf(cityKey) !== -1) { wdata = weatherData[k]; break; }
+  }
+
+  var tbodyId = 'weather-body-' + toCity.replace(/[^a-z]/gi,'').toLowerCase();
+  var tbody = document.getElementById(tbodyId);
+  if (tbody && wdata) {
+    var maxH = Math.max.apply(null, wdata.highs);
+    var minL = Math.min.apply(null, wdata.lows);
+    var highRow = '<tr><td class="month" style="text-align:left; padding-left:10px;">&#x1F321; High °F</td>';
+    var lowRow  = '<tr><td class="month" style="text-align:left; padding-left:10px;">&#x2744; Low °F</td>';
+    wdata.highs.forEach(function(h) {
+      var w = Math.round((h/maxH)*60) + 10;
+      highRow += '<td><div class="temp-bar-wrap"><span class="high">' + h + '</span></div></td>';
+    });
+    wdata.lows.forEach(function(l) {
+      lowRow += '<td><div class="temp-bar-wrap"><span class="low">' + l + '</span></div></td>';
+    });
+    highRow += '</tr>';
+    lowRow  += '</tr>';
+    tbody.innerHTML = highRow + lowRow;
+  }
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -587,6 +689,55 @@ function resetGuide() {
   document.getElementById('input-card').style.display = 'block';
   document.getElementById('gen-btn').disabled = false;
   document.getElementById('gen-btn').textContent = 'Generate My Free NC Relocation Guide';
+  // Render weather chart from hardcoded API data
+  const weatherData = {
+    'greensboro':    { highs:[49,53,62,72,79,86,89,88,82,72,62,52], lows:[29,31,39,48,57,65,69,68,61,49,39,31] },
+    'winstonsalem':  { highs:[48,52,61,71,78,85,88,87,81,71,61,51], lows:[28,30,38,47,56,64,68,67,60,48,38,30] },
+    'highpoint':     { highs:[49,53,62,72,79,86,89,88,82,72,62,52], lows:[29,31,39,48,57,65,69,68,61,49,39,31] },
+    'charlotte':     { highs:[51,55,64,73,81,88,91,90,83,73,63,53], lows:[31,33,41,50,59,67,71,70,63,51,41,33] },
+    'raleigh':       { highs:[50,54,63,72,80,87,90,88,82,72,62,52], lows:[29,31,39,48,57,65,70,69,62,50,40,31] },
+    'durham':        { highs:[50,54,63,72,80,87,90,88,82,72,62,52], lows:[29,31,39,48,57,65,70,69,62,50,40,31] },
+    'chapelhill':    { highs:[50,54,63,72,80,87,90,88,82,72,62,52], lows:[29,31,39,48,57,65,70,69,62,50,40,31] },
+    'cary':          { highs:[50,54,63,72,80,87,90,88,82,72,62,52], lows:[29,31,39,48,57,65,70,69,62,50,40,31] },
+    'wilmington':    { highs:[55,58,65,73,80,86,90,89,84,75,67,58], lows:[35,37,44,52,61,69,73,72,66,55,45,37] },
+    'asheville':     { highs:[46,50,58,67,74,81,84,83,77,67,57,48], lows:[24,26,33,41,50,58,62,61,54,43,34,26] },
+    'fayetteville':  { highs:[52,56,64,74,81,88,91,89,83,73,64,54], lows:[31,33,40,49,58,66,70,69,62,51,41,33] },
+    'concord':       { highs:[51,55,64,73,81,88,91,90,83,73,63,53], lows:[31,33,41,50,59,67,71,70,63,51,41,33] },
+    'gastonia':      { highs:[51,55,64,73,81,88,91,90,83,73,63,53], lows:[31,33,41,50,59,67,71,70,63,51,41,33] },
+    'jacksonville':  { highs:[55,58,65,73,80,87,90,89,84,75,67,57], lows:[34,36,43,51,60,68,72,71,65,54,44,36] },
+    'apex':          { highs:[50,54,63,72,80,87,90,88,82,72,62,52], lows:[29,31,39,48,57,65,70,69,62,50,40,31] },
+    'huntersville':  { highs:[51,55,64,73,81,88,91,90,83,73,63,53], lows:[31,33,41,50,59,67,71,70,63,51,41,33] },
+    'burlington':    { highs:[49,53,62,72,79,86,89,88,82,72,62,52], lows:[29,31,39,48,57,65,69,68,61,49,39,31] },
+    'rockymount':    { highs:[51,55,63,73,80,87,90,89,83,73,64,53], lows:[29,31,38,48,57,65,69,68,62,50,40,31] },
+    'wilson':        { highs:[51,55,63,73,80,87,90,89,83,73,64,53], lows:[29,31,38,48,57,65,69,68,62,50,40,31] },
+    'mooresville':   { highs:[51,55,64,73,81,88,91,90,83,73,63,53], lows:[31,33,41,50,59,67,71,70,63,51,41,33] }
+  };
+
+  var cityKey = toCity.toLowerCase().replace(/[^a-z]/g,'').replace('northcarolina','').replace('nc','');
+  var wdata = null;
+  for (var k in weatherData) {
+    if (cityKey.indexOf(k) !== -1 || k.indexOf(cityKey) !== -1) { wdata = weatherData[k]; break; }
+  }
+
+  var tbodyId = 'weather-body-' + toCity.replace(/[^a-z]/gi,'').toLowerCase();
+  var tbody = document.getElementById(tbodyId);
+  if (tbody && wdata) {
+    var maxH = Math.max.apply(null, wdata.highs);
+    var minL = Math.min.apply(null, wdata.lows);
+    var highRow = '<tr><td class="month" style="text-align:left; padding-left:10px;">&#x1F321; High °F</td>';
+    var lowRow  = '<tr><td class="month" style="text-align:left; padding-left:10px;">&#x2744; Low °F</td>';
+    wdata.highs.forEach(function(h) {
+      var w = Math.round((h/maxH)*60) + 10;
+      highRow += '<td><div class="temp-bar-wrap"><span class="high">' + h + '</span></div></td>';
+    });
+    wdata.lows.forEach(function(l) {
+      lowRow += '<td><div class="temp-bar-wrap"><span class="low">' + l + '</span></div></td>';
+    });
+    highRow += '</tr>';
+    lowRow  += '</tr>';
+    tbody.innerHTML = highRow + lowRow;
+  }
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>

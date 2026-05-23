@@ -1,15 +1,26 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "api/generate.js", "use": "@vercel/node" },
-    { "src": "*.html", "use": "@vercel/static" }
-  ],
+  "functions": {
+    "api/generate.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
   "routes": [
-    { "src": "/api/generate", "dest": "/api/generate.js" },
-    { "src": "/", "dest": "/index.html" },
-    { "src": "/resources", "dest": "/resources.html" },
-    { "src": "/resources.html", "dest": "/resources.html" },
-    { "src": "/relocation-guide", "dest": "/relocation-guide.html" },
-    { "src": "/relocation-guide.html", "dest": "/relocation-guide.html" }
+    {
+      "src": "/api/generate",
+      "dest": "/api/generate.js"
+    },
+    {
+      "src": "/resources",
+      "dest": "/resources.html"
+    },
+    {
+      "src": "/relocation-guide",
+      "dest": "/relocation-guide.html"
+    },
+    {
+      "src": "/",
+      "dest": "/index.html"
+    }
   ]
 }

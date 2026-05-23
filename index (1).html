@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Relocate to North Carolina | Your NC Relocation Guide</title>
+<meta name="description" content="Moving to North Carolina? Get your free relocation guide, explore NC cities, and connect with a licensed mortgage expert. Serving Greensboro, Charlotte, Raleigh & beyond."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0C2340;
+    --navy-mid: #1a3a5c;
+    --gold: #C8952A;
+    --gold-light: #F5E6C8;
+    --white: #FFFFFF;
+    --off-white: #F7F5F0;
+    --text: #1A1A1A;
+    --muted: #5A5A5A;
+    --border: #E2DDD5;
+    --radius: 10px;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Source Sans 3', sans-serif; color: var(--text); background: var(--white); font-size: 16px; line-height: 1.6; }
+  a { text-decoration: none; }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--navy);
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .nav-brand { color: var(--white); font-family: 'Playfair Display', serif; font-size: 19px; white-space: nowrap; }
+  .nav-brand span { color: var(--gold); }
+  .nav-links { display: flex; gap: 6px; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.07); }
+  .nav-links a.active { color: var(--gold); }
+  .nav-links a.resources-link { color: rgba(255,255,255,0.75); }
+  .nav-links a.resources-link:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--navy) !important;
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 13px;
+    margin-left: 8px;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { opacity: 0.88; background: var(--gold) !important; }
+  .nav-mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+  .nav-mobile-toggle span { display: block; width: 22px; height: 2px; background: var(--white); margin: 4px 0; border-radius: 2px; transition: transform 0.3s; }
+  .mobile-menu {
+    display: none;
+    background: var(--navy);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 12px 20px 20px;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .mobile-menu a { color: rgba(255,255,255,0.80); font-size: 15px; padding: 10px 12px; border-radius: 6px; font-weight: 500; display: block; }
+  .mobile-menu a:hover { background: rgba(255,255,255,0.07); color: var(--white); }
+  .mobile-menu .mob-cta { background: var(--gold); color: var(--navy); font-weight: 700; margin-top: 8px; text-align: center; border-radius: 8px; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    padding: 96px 40px 88px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-circle-1 { position: absolute; top: -120px; right: -100px; width: 480px; height: 480px; border-radius: 50%; background: rgba(200,149,42,0.07); pointer-events: none; }
+  .hero-circle-2 { position: absolute; bottom: -100px; left: -80px; width: 340px; height: 340px; border-radius: 50%; background: rgba(200,149,42,0.05); pointer-events: none; }
+  .hero-eyebrow {
+    display: inline-block;
+    background: rgba(200,149,42,0.18);
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 54px;
+    line-height: 1.14;
+    max-width: 720px;
+    margin: 0 auto 22px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p { color: rgba(255,255,255,0.72); font-size: 19px; max-width: 540px; margin: 0 auto 42px; }
+  .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-gold-hero { background: var(--gold); color: var(--navy); padding: 15px 32px; border-radius: 8px; font-weight: 700; font-size: 16px; transition: opacity 0.2s; display: inline-block; }
+  .btn-gold-hero:hover { opacity: 0.88; color: var(--navy); }
+  .btn-outline-hero { border: 1.5px solid rgba(255,255,255,0.40); color: var(--white); padding: 15px 32px; border-radius: 8px; font-weight: 600; font-size: 16px; transition: background 0.2s; display: inline-block; }
+  .btn-outline-hero:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+
+  /* ── TRUST BAR ── */
+  .trust-bar { background: var(--off-white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 20px 40px; }
+  .trust-inner { display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; }
+  .trust-item { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 13px; font-weight: 600; }
+  .trust-dot { width: 7px; height: 7px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+
+  /* ── SECTIONS ── */
+  section { padding: 84px 40px; }
+  .section-inner { max-width: 1000px; margin: 0 auto; }
+  .section-header { text-align: center; margin-bottom: 56px; }
+  .section-eyebrow { color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .section-header h2 { font-family: 'Playfair Display', serif; font-size: 38px; color: var(--navy); line-height: 1.2; }
+  .section-header p { color: var(--muted); font-size: 17px; margin-top: 14px; max-width: 580px; margin-left: auto; margin-right: auto; }
+  .alt-bg { background: var(--off-white); }
+
+  /* ── WHY NC ── */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px 24px; transition: box-shadow 0.25s, transform 0.25s; }
+  .card:hover { box-shadow: 0 8px 32px rgba(12,35,64,0.10); transform: translateY(-3px); }
+  .card-icon { font-size: 32px; margin-bottom: 14px; }
+  .card h3 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  .card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+  /* ── CITIES ── */
+  .cities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px; }
+  .city-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.25s, transform 0.25s; }
+  .city-card:hover { box-shadow: 0 8px 32px rgba(12,35,64,0.10); transform: translateY(-3px); }
+  .city-banner { background: var(--navy); padding: 26px 22px; }
+  .city-banner h3 { color: var(--white); font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 4px; }
+  .city-banner span { color: var(--gold); font-size: 13px; font-weight: 500; }
+  .city-body { padding: 20px 22px; }
+  .city-stat { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  .city-stat strong { color: var(--text); }
+
+  /* ── MORTGAGE SPLIT ── */
+  .mortgage-split { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .mortgage-text h2 { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+  .mortgage-text p { color: var(--muted); font-size: 16px; margin-bottom: 28px; line-height: 1.75; }
+  .loan-types { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+  .loan-badge { background: var(--gold-light); color: var(--navy); font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 100px; }
+  .profile-card { background: var(--navy); border-radius: 16px; padding: 38px 32px; color: var(--white); text-align: center; }
+  .profile-avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); font-weight: 700; }
+  .profile-card h3 { font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+  .profile-role { color: rgba(255,255,255,0.60); font-size: 14px; margin-bottom: 22px; }
+  .profile-detail { font-size: 13px; color: rgba(255,255,255,0.72); margin-bottom: 10px; }
+  .profile-detail span { color: var(--gold); font-weight: 600; }
+  .profile-btn { display: block; margin-top: 20px; background: var(--gold); color: var(--navy); padding: 13px 22px; border-radius: 8px; font-weight: 700; font-size: 15px; transition: opacity 0.2s; }
+  .profile-btn:hover { opacity: 0.88; color: var(--navy); }
+  .profile-btn-outline { display: block; margin-top: 10px; border: 1.5px solid rgba(255,255,255,0.30); color: var(--white); padding: 13px 22px; border-radius: 8px; font-weight: 600; font-size: 15px; transition: background 0.2s; }
+  .profile-btn-outline:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+
+  /* ── LEAD FORM ── */
+  .form-section { background: var(--navy); }
+  .form-wrap { background: var(--white); border-radius: 18px; padding: 52px 48px; max-width: 800px; margin: 0 auto; }
+  .form-wrap .section-eyebrow { text-align: center; }
+  .form-wrap h2 { font-family: 'Playfair Display', serif; font-size: 34px; color: var(--navy); text-align: center; margin-bottom: 10px; }
+  .form-subtitle { text-align: center; color: var(--muted); font-size: 16px; margin-bottom: 38px; }
+  .ghl-iframe-wrap { width: 100%; min-height: 640px; }
+  .ghl-iframe-wrap iframe { width: 100%; min-height: 640px; border: none; border-radius: 8px; display: block; }
+  .form-disclaimer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 16px; }
+
+  /* ── CHECKLIST ── */
+  .checklist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .check-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; }
+  .check-card h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+  .step-num { width: 30px; height: 30px; background: var(--navy); color: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .check-list { list-style: none; }
+  .check-list li { font-size: 13px; color: var(--muted); padding: 7px 0; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+  .check-list li:last-child { border-bottom: none; }
+  .check-list li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── RESOURCES PROMO BANNER ── */
+  .resources-promo { background: var(--gold-light); border: 1px solid var(--gold); border-radius: 14px; padding: 36px 40px; display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; }
+  .resources-promo-text h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-bottom: 8px; }
+  .resources-promo-text p { color: var(--muted); font-size: 15px; max-width: 480px; }
+  .resources-promo-text ul { list-style: none; margin-top: 10px; }
+  .resources-promo-text ul li { font-size: 14px; color: var(--navy); font-weight: 500; margin-bottom: 4px; }
+  .resources-promo-text ul li::before { content: '→ '; color: var(--gold); font-weight: 700; }
+  .btn-navy-sm { background: var(--navy); color: var(--white); padding: 14px 28px; border-radius: 8px; font-weight: 700; font-size: 15px; display: inline-block; transition: opacity 0.2s; white-space: nowrap; }
+  .btn-navy-sm:hover { opacity: 0.88; color: var(--white); }
+
+  /* ── CTA BANNER ── */
+  .cta-banner { background: var(--navy); border-radius: 18px; padding: 64px 48px; text-align: center; max-width: 860px; margin: 0 auto; }
+  .cta-banner h2 { font-family: 'Playfair Display', serif; font-size: 40px; color: var(--white); margin-bottom: 16px; }
+  .cta-banner p { color: rgba(255,255,255,0.70); font-size: 18px; margin-bottom: 36px; }
+  .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-gold-lg { background: var(--gold); color: var(--navy); padding: 16px 36px; border-radius: 8px; font-weight: 700; font-size: 16px; display: inline-block; transition: opacity 0.2s; }
+  .btn-gold-lg:hover { opacity: 0.88; color: var(--navy); }
+  .btn-white-outline { border: 1.5px solid rgba(255,255,255,0.38); color: var(--white); padding: 16px 36px; border-radius: 8px; font-weight: 600; font-size: 16px; display: inline-block; transition: background 0.2s; }
+  .btn-white-outline:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+
+  /* ── FOOTER ── */
+  footer { background: #081828; color: rgba(255,255,255,0.50); text-align: center; padding: 36px 40px; font-size: 13px; line-height: 2.0; }
+  footer a { color: var(--gold); }
+  footer strong { color: rgba(255,255,255,0.78); }
+  .footer-nav { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 14px; }
+  .footer-nav a { color: rgba(255,255,255,0.55); font-size: 13px; font-weight: 500; transition: color 0.2s; }
+  .footer-nav a:hover { color: var(--gold); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 820px) {
+    .mortgage-split { grid-template-columns: 1fr; gap: 36px; }
+    .hero h1 { font-size: 36px; }
+    section { padding: 60px 20px; }
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .nav-mobile-toggle { display: flex; flex-direction: column; }
+    .mobile-menu { display: none; }
+    .mobile-menu.open { display: flex; }
+    .form-wrap { padding: 32px 20px; }
+    .resources-promo { flex-direction: column; text-align: center; }
+    .cta-banner { padding: 40px 24px; }
+    .cta-banner h2 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-brand">Relocate to <span>North Carolina</span></a>
+  <div class="nav-links">
+    <a href="#why-nc">Why NC</a>
+    <a href="#cities">Cities</a>
+    <a href="#mortgage">Mortgage</a>
+    <a href="resources.html" class="resources-link">Resources</a>
+    <a href="#get-started">Get Started</a>
+    <a href="https://calendly.com/dennisfieldsmortgagepro" class="nav-cta">📅 Book a Call</a>
+  </div>
+  <button class="nav-mobile-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#why-nc" onclick="closeMenu()">Why NC</a>
+  <a href="#cities" onclick="closeMenu()">Cities</a>
+  <a href="#mortgage" onclick="closeMenu()">Mortgage</a>
+  <a href="resources.html">Resources</a>
+  <a href="#get-started" onclick="closeMenu()">Get Started</a>
+  <a href="https://calendly.com/dennisfieldsmortgagepro" class="mob-cta">📅 Book a Free Call</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-circle-1"></div>
+  <div class="hero-circle-2"></div>
+  <div class="hero-eyebrow">Your Official NC Relocation Guide</div>
+  <h1>Moving to <span>North Carolina?</span><br/>Let's Make It Easy.</h1>
+  <p>From finding the right city to getting pre-approved for your home loan — everything you need to make your NC move a success.</p>
+  <div class="hero-actions">
+    <a href="#get-started" class="btn-gold-hero">📋 Get Your Free Relocation Plan</a>
+    <a href="https://dennisfieldsmortgagepro.com" class="btn-outline-hero">Apply for a Mortgage →</a>
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item"><div class="trust-dot"></div>20+ Years Experience</div>
+    <div class="trust-item"><div class="trust-dot"></div>Licensed in NC · SC · VA</div>
+    <div class="trust-item"><div class="trust-dot"></div>FHA · VA · USDA · Conventional · DPA</div>
+    <div class="trust-item"><div class="trust-dot"></div>Close in as Little as 21 Days</div>
+    <div class="trust-item"><div class="trust-dot"></div>NMLS #1407951</div>
+  </div>
+</div>
+
+<!-- WHY NC -->
+<section id="why-nc">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Why North Carolina</div>
+      <h2>One of the Best States to Call Home</h2>
+      <p>From the mountains to the coast — NC offers quality of life, affordability, and opportunity that's hard to beat anywhere in America.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card"><div class="card-icon">🏡</div><h3>Affordable Housing</h3><p>Home prices well below the national average in many NC markets, especially in the Triad and Piedmont regions.</p></div>
+      <div class="card"><div class="card-icon">💼</div><h3>Booming Job Market</h3><p>Tech, finance, healthcare, and manufacturing jobs are flowing into NC. The Research Triangle is one of the hottest hubs in the U.S.</p></div>
+      <div class="card"><div class="card-icon">📚</div><h3>Top-Ranked Schools</h3><p>UNC Chapel Hill, Duke, Wake Forest, NC State — plus strong K-12 options across the state.</p></div>
+      <div class="card"><div class="card-icon">🌄</div><h3>Incredible Lifestyle</h3><p>Mountains, beaches, four seasons, great food, and warm weather most of the year. NC really has it all.</p></div>
+      <div class="card"><div class="card-icon">🚗</div><h3>Low Traffic Commutes</h3><p>Compared to Northern metros, NC cities offer manageable commutes and excellent highway infrastructure.</p></div>
+      <div class="card"><div class="card-icon">🤝</div><h3>Welcoming Communities</h3><p>NC is known for Southern hospitality. Whether you're moving from up North or overseas, you'll feel at home fast.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CITY GUIDES -->
+<section id="cities" class="alt-bg">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">City Guides</div>
+      <h2>Find Your Perfect NC City</h2>
+      <p>We cover the markets we know best — and the ones growing fastest.</p>
+    </div>
+    <div class="cities-grid">
+      <div class="city-card"><div class="city-banner"><h3>Greensboro</h3><span>The Gate City</span></div><div class="city-body"><div class="city-stat">Median Home Price: <strong>~$265,000</strong></div><div class="city-stat">Vibe: <strong>Affordable, diverse, growing</strong></div><div class="city-stat">Best for: <strong>First-time buyers &amp; families</strong></div></div></div>
+      <div class="city-card"><div class="city-banner"><h3>Winston-Salem</h3><span>City of Arts &amp; Innovation</span></div><div class="city-body"><div class="city-stat">Median Home Price: <strong>~$245,000</strong></div><div class="city-stat">Vibe: <strong>Revitalized, artsy, affordable</strong></div><div class="city-stat">Best for: <strong>Young professionals &amp; investors</strong></div></div></div>
+      <div class="city-card"><div class="city-banner"><h3>Charlotte</h3><span>The Queen City</span></div><div class="city-body"><div class="city-stat">Median Home Price: <strong>~$385,000</strong></div><div class="city-stat">Vibe: <strong>Metro energy, financial hub</strong></div><div class="city-stat">Best for: <strong>Corporate relocations &amp; upsizers</strong></div></div></div>
+      <div class="city-card"><div class="city-banner"><h3>Raleigh / Durham</h3><span>Research Triangle</span></div><div class="city-body"><div class="city-stat">Median Home Price: <strong>~$380,000</strong></div><div class="city-stat">Vibe: <strong>Tech-forward, educated, dynamic</strong></div><div class="city-stat">Best for: <strong>Tech workers &amp; academics</strong></div></div></div>
+      <div class="city-card"><div class="city-banner"><h3>High Point</h3><span>Furniture Capital of the World</span></div><div class="city-body"><div class="city-stat">Median Home Price: <strong>~$230,000</strong></div><div class="city-stat">Vibe: <strong>Underrated gem, tight-knit</strong></div><div class="city-stat">Best for: <strong>Budget buyers &amp; investors</strong></div></div></div>
+      <div class="city-card"><div class="city-banner"><h3>Wilmington</h3><span>Port City on the Coast</span></div><div class="city-body"><div class="city-stat">Median Home Price: <strong>~$350,000</strong></div><div class="city-stat">Vibe: <strong>Beach lifestyle, relaxed pace</strong></div><div class="city-stat">Best for: <strong>Retirees &amp; lifestyle buyers</strong></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MORTGAGE -->
+<section id="mortgage">
+  <div class="section-inner">
+    <div class="mortgage-split">
+      <div class="mortgage-text">
+        <div class="section-eyebrow">Your NC Mortgage Expert</div>
+        <h2>Get Pre-Approved Before You Pack a Box</h2>
+        <p>Knowing your buying power is the first step to a successful relocation. I specialize in helping people moving to NC close fast, confidently, and with the best loan for their situation — including little-to-no money down options.</p>
+        <div class="loan-types">
+          <span class="loan-badge">FHA Loans</span>
+          <span class="loan-badge">VA Loans</span>
+          <span class="loan-badge">USDA Loans</span>
+          <span class="loan-badge">Conventional</span>
+          <span class="loan-badge">Down Payment Assistance</span>
+          <span class="loan-badge">First-Time Buyers</span>
+          <span class="loan-badge">Bank Statement</span>
+          <span class="loan-badge">DSCR / Investor</span>
+          <span class="loan-badge">Manufactured Homes</span>
+          <span class="loan-badge">Reverse Mortgage</span>
+        </div>
+        <a href="https://calendly.com/dennisfieldsmortgagepro" class="btn-gold-hero">Schedule a Free Strategy Call →</a>
+      </div>
+      <div class="profile-card">
+        <div class="profile-avatar">DF</div>
+        <h3>Dennis Fields</h3>
+        <div class="profile-role">Mortgage Loan Officer · NMLS #1407951</div>
+        <div class="profile-detail">🏢 <span>Movement Mortgage</span></div>
+        <div class="profile-detail">📍 <span>Greensboro, NC</span> · Licensed in NC, SC &amp; VA</div>
+        <div class="profile-detail">⏱️ <span>20+ Years</span> of Mortgage Experience</div>
+        <div class="profile-detail">🎯 Specializing in <span>First-Time Buyers &amp; Relocation</span></div>
+        <a href="https://calendly.com/dennisfieldsmortgagepro" class="profile-btn">📅 Book a Free Consultation</a>
+        <a href="https://dennisfieldsmortgagepro.com" class="profile-btn-outline">Apply Online →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES PROMO -->
+<section class="alt-bg" style="padding: 56px 40px;">
+  <div class="resources-promo">
+    <div class="resources-promo-text">
+      <h3>Free NC Relocation Tools</h3>
+      <p>Head to our Resources page for free calculators, cost of living comparisons, and agent connections.</p>
+      <ul>
+        <li>NC Mortgage Payment Estimator</li>
+        <li>Cost of Living Comparison Tool</li>
+        <li>Connect with a Trusted NC Agent</li>
+      </ul>
+    </div>
+    <a href="resources.html" class="btn-navy-sm">Explore Resources →</a>
+  </div>
+</section>
+
+<!-- LEAD CAPTURE FORM -->
+<section id="get-started" class="form-section">
+  <div class="section-inner">
+    <div class="form-wrap">
+      <div class="section-eyebrow">Free Relocation Consultation</div>
+      <h2>Let's Build Your NC Game Plan</h2>
+      <p class="form-subtitle">Tell us about your move and Dennis will personally reach out with a customized plan — mortgage options, city recommendations, and next steps.</p>
+      <div class="ghl-iframe-wrap">
+        <!-- PASTE YOUR GHL FORM IFRAME EMBED CODE BELOW -->
+        <iframe
+          src="https://api.leadconnectorhq.com/widget/form/YOUR_FORM_ID_HERE"
+          style="width:100%;min-height:640px;border:none;border-radius:8px;"
+          scrolling="no"
+          title="NC Relocation Consultation Form">
+        </iframe>
+        <!-- END GHL FORM EMBED -->
+      </div>
+      <p class="form-disclaimer">All loans subject to approval. Equal Housing Lender. Dennis Fields · Movement Mortgage · NMLS #1407951</p>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section id="checklist" class="alt-bg">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Relocation Checklist</div>
+      <h2>Your Step-by-Step Moving Roadmap</h2>
+      <p>We break down every phase of your move so nothing falls through the cracks.</p>
+    </div>
+    <div class="checklist-grid">
+      <div class="check-card"><h3><div class="step-num">1</div>6–12 Months Before</h3><ul class="check-list"><li>Research NC cities and neighborhoods</li><li>Check your credit score</li><li>Get pre-qualified for a mortgage</li><li>Create a moving budget</li><li>Research employers or remote work options</li></ul></div>
+      <div class="check-card"><h3><div class="step-num">2</div>3–6 Months Before</h3><ul class="check-list"><li>Get fully pre-approved for your home loan</li><li>Connect with a local NC real estate agent</li><li>Visit NC and tour neighborhoods</li><li>Research schools and districts</li><li>Start decluttering your current home</li></ul></div>
+      <div class="check-card"><h3><div class="step-num">3</div>1–3 Months Before</h3><ul class="check-list"><li>Make an offer on your new NC home</li><li>Lock in your mortgage rate</li><li>Hire movers or reserve a truck</li><li>Notify employer, banks, and USPS</li><li>Transfer school and medical records</li></ul></div>
+      <div class="check-card"><h3><div class="step-num">4</div>Move-In Month</h3><ul class="check-list"><li>Complete final mortgage walkthrough</li><li>Close on your home 🎉</li><li>Set up NC utilities and internet</li><li>Get NC driver's license (60-day window)</li><li>Register to vote and update your address</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section style="background: var(--off-white);">
+  <div class="section-inner">
+    <div class="cta-banner">
+      <h2>Ready to Make North Carolina Home?</h2>
+      <p>Let's talk about your timeline, your budget, and the best loan for your move. The consultation is free — the knowledge is priceless.</p>
+      <div class="cta-actions">
+        <a href="https://calendly.com/dennisfieldsmortgagepro" class="btn-gold-lg">📅 Book Your Free Call</a>
+        <a href="https://dennisfieldsmortgagepro.com" class="btn-white-outline">Apply for a Mortgage →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-nav">
+    <a href="#why-nc">Why NC</a>
+    <a href="#cities">Cities</a>
+    <a href="#mortgage">Mortgage</a>
+    <a href="resources.html">Resources</a>
+    <a href="#get-started">Get Started</a>
+    <a href="https://calendly.com/dennisfieldsmortgagepro">Book a Call</a>
+  </div>
+  <p><strong>Dennis Fields</strong> · Movement Mortgage · NMLS #1407951</p>
+  <p>Licensed in NC · SC · VA &nbsp;|&nbsp; <a href="https://yourlocalmortgagepro.com">yourlocalmortgagepro.com</a> &nbsp;|&nbsp; <a href="https://dennisfieldsmortgagepro.com">Apply Online</a></p>
+  <p>
+    <a href="https://facebook.com/yourlocalmortgagepros">Facebook</a> &nbsp;|&nbsp;
+    <a href="https://instagram.com/dennisfieldsmortgagepro">Instagram</a> &nbsp;|&nbsp;
+    <a href="https://linkedin.com/in/dennis-fields">LinkedIn</a> &nbsp;|&nbsp;
+    <a href="https://maps.app.goo.gl/zuYBrQ4WReoxDLSG7">Google</a>
+  </p>
+  <p style="margin-top: 14px;">All loans subject to approval. Equal Housing Lender. &copy; 2025 Dennis Fields · Movement Mortgage</p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobile-menu').classList.remove('open');
+  }
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', function(e) {
+    var nav = document.getElementById('main-nav');
+    var menu = document.getElementById('mobile-menu');
+    if (!nav.contains(e.target) && !menu.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
+</script>
+
+</body>
+</html>

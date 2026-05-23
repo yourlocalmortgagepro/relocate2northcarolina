@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NC Relocation Resources | Calculators, City Guides & Agent Connections</title>
+<meta name="description" content="Free NC relocation tools — mortgage payment estimator, cost of living comparison, and connect with a trusted local real estate agent. Dennis Fields, Movement Mortgage."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0C2340;
+    --navy-mid: #1a3a5c;
+    --gold: #C8952A;
+    --gold-light: #F5E6C8;
+    --white: #FFFFFF;
+    --off-white: #F7F5F0;
+    --text: #1A1A1A;
+    --muted: #5A5A5A;
+    --border: #E2DDD5;
+    --radius: 10px;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Source Sans 3', sans-serif; color: var(--text); background: var(--white); font-size: 16px; line-height: 1.6; }
+  a { text-decoration: none; }
+
+  /* ── NAV (identical to homepage) ── */
+  nav {
+    background: var(--navy);
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .nav-brand { color: var(--white); font-family: 'Playfair Display', serif; font-size: 19px; white-space: nowrap; }
+  .nav-brand span { color: var(--gold); }
+  .nav-links { display: flex; gap: 6px; align-items: center; }
+  .nav-links a { color: rgba(255,255,255,0.75); font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: color 0.2s, background 0.2s; }
+  .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.07); }
+  .nav-links a.active { color: var(--gold); background: rgba(200,149,42,0.12); }
+  .nav-cta { background: var(--gold); color: var(--navy) !important; padding: 9px 18px; border-radius: 6px; font-weight: 700; font-size: 13px; margin-left: 8px; transition: opacity 0.2s; white-space: nowrap; }
+  .nav-cta:hover { opacity: 0.88; background: var(--gold) !important; }
+  .nav-mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 4px; }
+  .nav-mobile-toggle span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
+  .mobile-menu { display: none; background: var(--navy); border-top: 1px solid rgba(255,255,255,0.08); padding: 12px 20px 20px; flex-direction: column; gap: 4px; }
+  .mobile-menu a { color: rgba(255,255,255,0.80); font-size: 15px; padding: 10px 12px; border-radius: 6px; font-weight: 500; display: block; }
+  .mobile-menu a:hover { background: rgba(255,255,255,0.07); color: var(--white); }
+  .mobile-menu a.active { color: var(--gold); }
+  .mobile-menu .mob-cta { background: var(--gold); color: var(--navy); font-weight: 700; margin-top: 8px; text-align: center; border-radius: 8px; }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    padding: 72px 40px 64px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before { content:''; position:absolute; top:-80px; right:-80px; width:360px; height:360px; border-radius:50%; background:rgba(200,149,42,0.07); pointer-events:none; }
+  .page-eyebrow { display:inline-block; background:rgba(200,149,42,0.18); color:var(--gold); font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:6px 18px; border-radius:100px; margin-bottom:20px; }
+  .page-header h1 { font-family:'Playfair Display',serif; color:var(--white); font-size:42px; line-height:1.18; margin-bottom:14px; }
+  .page-header p { color:rgba(255,255,255,0.68); font-size:17px; max-width:520px; margin:0 auto; }
+
+  /* ── LAYOUT ── */
+  .resources-body { max-width: 960px; margin: 0 auto; padding: 60px 40px 80px; }
+  .resource-block { margin-bottom: 72px; }
+  .resource-block:last-child { margin-bottom: 0; }
+  .block-label { color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .block-title { font-family: 'Playfair Display', serif; font-size: 30px; color: var(--navy); margin-bottom: 6px; line-height: 1.22; }
+  .block-sub { color: var(--muted); font-size: 15px; margin-bottom: 28px; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 64px 0; }
+
+  /* ── MORTGAGE CALCULATOR ── */
+  .calc-card { background: var(--off-white); border: 1px solid var(--border); border-radius: 14px; padding: 36px 32px; }
+  .slider-row { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+  .slider-label { font-size: 13px; color: var(--muted); font-weight: 600; min-width: 150px; }
+  .slider-row input[type=range] { flex: 1; accent-color: var(--navy); height: 4px; cursor: pointer; }
+  .slider-val { font-size: 15px; font-weight: 700; color: var(--navy); min-width: 100px; text-align: right; }
+  .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-top: 28px; }
+  .result-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 16px; text-align: center; }
+  .result-box .rlabel { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .result-box .rvalue { font-size: 22px; font-weight: 700; color: var(--navy); }
+  .result-box.featured { background: var(--navy); border-color: var(--navy); }
+  .result-box.featured .rlabel { color: rgba(255,255,255,0.60); }
+  .result-box.featured .rvalue { color: var(--gold); font-size: 26px; }
+  .calc-note { font-size: 12px; color: var(--muted); margin-top: 16px; }
+
+  /* ── COL COMPARISON ── */
+  .col-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  .fg { display: flex; flex-direction: column; gap: 6px; }
+  .fg label { font-size: 12px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.5px; }
+  .fg select, .fg input {
+    border: 1.5px solid var(--border); border-radius: 8px; padding: 11px 13px;
+    font-size: 15px; font-family: inherit; color: var(--text); background: var(--white);
+    outline: none; transition: border-color 0.2s; cursor: pointer;
+  }
+  .fg select:focus, .fg input:focus { border-color: var(--navy); }
+  .col-table { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .col-table-head { display: grid; grid-template-columns: 1fr 1fr 1fr; background: var(--off-white); border-bottom: 1px solid var(--border); }
+  .col-th { padding: 14px 18px; font-size: 13px; font-weight: 700; color: var(--navy); }
+  .col-th.nc-col { background: var(--navy); color: var(--gold); }
+  .col-table-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid var(--border); }
+  .col-table-row:last-child { border-bottom: none; }
+  .col-td { padding: 13px 18px; font-size: 14px; color: var(--text); }
+  .col-td.category { color: var(--muted); font-weight: 600; font-size: 13px; }
+  .col-td.nc-col { background: rgba(12,35,64,0.03); font-weight: 700; color: var(--navy); }
+  .col-td.other-col { color: var(--text); }
+  .col-td.worse { color: #B33A3A; }
+  .savings-box { background: var(--gold-light); border: 1px solid var(--gold); border-radius: 10px; padding: 18px 22px; margin-top: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .savings-box .s-label { font-size: 15px; font-weight: 600; color: var(--navy); }
+  .savings-box .s-amount { font-size: 26px; font-weight: 700; color: var(--navy); }
+
+  /* ── AGENT REFERRAL ── */
+  .agent-intro { background: var(--navy); border-radius: 14px; padding: 34px 30px; margin-bottom: 24px; display: flex; align-items: flex-start; gap: 22px; }
+  .agent-avatar { width: 68px; height: 68px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 26px; color: var(--navy); font-weight: 700; flex-shrink: 0; }
+  .agent-intro-text h3 { color: var(--white); font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .agent-intro-text p { color: rgba(255,255,255,0.68); font-size: 14px; line-height: 1.65; }
+  .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .benefit-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 18px; }
+  .benefit-icon { font-size: 26px; margin-bottom: 10px; }
+  .benefit-card h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .benefit-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .agent-form-card { background: var(--off-white); border: 1px solid var(--border); border-radius: 14px; padding: 32px; }
+  .agent-form-card h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 22px; }
+  .ghl-agent-iframe { width: 100%; min-height: 540px; border: none; border-radius: 8px; display: block; }
+  .form-disclaimer { font-size: 12px; color: var(--muted); margin-top: 14px; text-align: center; }
+
+  /* ── BOTTOM CTA ── */
+  .bottom-cta { background: var(--navy); border-radius: 16px; padding: 56px 44px; text-align: center; margin-top: 72px; }
+  .bottom-cta h2 { font-family: 'Playfair Display', serif; font-size: 34px; color: var(--white); margin-bottom: 14px; }
+  .bottom-cta p { color: rgba(255,255,255,0.68); font-size: 17px; margin-bottom: 32px; }
+  .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-gold-lg { background: var(--gold); color: var(--navy); padding: 15px 34px; border-radius: 8px; font-weight: 700; font-size: 16px; display: inline-block; transition: opacity 0.2s; }
+  .btn-gold-lg:hover { opacity: 0.88; color: var(--navy); }
+  .btn-white-outline { border: 1.5px solid rgba(255,255,255,0.35); color: var(--white); padding: 15px 34px; border-radius: 8px; font-weight: 600; font-size: 16px; display: inline-block; transition: background 0.2s; }
+  .btn-white-outline:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+
+  /* ── FOOTER ── */
+  footer { background: #081828; color: rgba(255,255,255,0.50); text-align: center; padding: 36px 40px; font-size: 13px; line-height: 2.0; }
+  footer a { color: var(--gold); }
+  footer strong { color: rgba(255,255,255,0.78); }
+  .footer-nav { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 14px; }
+  .footer-nav a { color: rgba(255,255,255,0.55); font-size: 13px; font-weight: 500; transition: color 0.2s; }
+  .footer-nav a:hover { color: var(--gold); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 720px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .nav-mobile-toggle { display: flex; }
+    .mobile-menu { display: none; }
+    .mobile-menu.open { display: flex; }
+    .resources-body { padding: 40px 20px 60px; }
+    .page-header { padding: 52px 20px 48px; }
+    .page-header h1 { font-size: 30px; }
+    .col-controls { grid-template-columns: 1fr; }
+    .col-table-head, .col-table-row { grid-template-columns: 1fr 1fr 1fr; }
+    .col-th, .col-td { padding: 10px 12px; font-size: 12px; }
+    .slider-row { flex-wrap: wrap; gap: 8px; }
+    .slider-label { min-width: 100%; }
+    .agent-intro { flex-direction: column; }
+    .bottom-cta { padding: 36px 20px; }
+    .bottom-cta h2 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV (matches homepage) -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-brand">Relocate to <span>North Carolina</span></a>
+  <div class="nav-links">
+    <a href="index.html#why-nc">Why NC</a>
+    <a href="index.html#cities">Cities</a>
+    <a href="index.html#mortgage">Mortgage</a>
+    <a href="resources.html" class="active">Resources</a>
+    <a href="index.html#get-started">Get Started</a>
+    <a href="https://calendly.com/dennisfieldsmortgagepro" class="nav-cta">📅 Book a Call</a>
+  </div>
+  <button class="nav-mobile-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html#why-nc" onclick="closeMenu()">Why NC</a>
+  <a href="index.html#cities" onclick="closeMenu()">Cities</a>
+  <a href="index.html#mortgage" onclick="closeMenu()">Mortgage</a>
+  <a href="resources.html" class="active" onclick="closeMenu()">Resources</a>
+  <a href="index.html#get-started" onclick="closeMenu()">Get Started</a>
+  <a href="https://calendly.com/dennisfieldsmortgagepro" class="mob-cta">📅 Book a Free Call</a>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-eyebrow">Free Tools &amp; Resources</div>
+  <h1>Plan Your NC Move with Confidence</h1>
+  <p>Mortgage calculators, cost of living comparisons, and personal agent connections — all in one place.</p>
+</div>
+
+<div class="resources-body">
+
+  <!-- ── TOOL 1: MORTGAGE CALCULATOR ── -->
+  <div class="resource-block" id="calculator">
+    <div class="block-label">Tool 1 of 3</div>
+    <div class="block-title">NC Mortgage Payment Estimator</div>
+    <div class="block-sub">Adjust the sliders to see what your estimated monthly payment could look like based on your budget and loan terms.</div>
+
+    <div class="calc-card">
+      <div class="slider-row">
+        <span class="slider-label">Home Price</span>
+        <input type="range" id="price" min="100000" max="750000" step="5000" value="275000" oninput="calcMortgage()"/>
+        <span class="slider-val" id="price-out">$275,000</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">Down Payment</span>
+        <input type="range" id="down" min="0" max="25" step="1" value="3" oninput="calcMortgage()"/>
+        <span class="slider-val" id="down-out">3%</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">Interest Rate</span>
+        <input type="range" id="rate" min="4.5" max="9.5" step="0.125" value="6.75" oninput="calcMortgage()"/>
+        <span class="slider-val" id="rate-out">6.750%</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">Loan Term</span>
+        <input type="range" id="term" min="10" max="30" step="10" value="30" oninput="calcMortgage()"/>
+        <span class="slider-val" id="term-out">30 yrs</span>
+      </div>
+      <div class="results-grid">
+        <div class="result-box"><div class="rlabel">Loan Amount</div><div class="rvalue" id="r-loan">—</div></div>
+        <div class="result-box featured"><div class="rlabel">Est. Monthly Payment</div><div class="rvalue" id="r-payment">—</div></div>
+        <div class="result-box"><div class="rlabel">Down Payment $</div><div class="rvalue" id="r-down">—</div></div>
+        <div class="result-box"><div class="rlabel">Total Interest Paid</div><div class="rvalue" id="r-interest">—</div></div>
+      </div>
+      <p class="calc-note">* Estimate only. Does not include property taxes, homeowners insurance, PMI, or HOA fees. Contact Dennis for a precise quote tailored to your situation.</p>
+    </div>
+
+    <div style="text-align:center; margin-top:24px;">
+      <a href="https://calendly.com/dennisfieldsmortgagepro" style="display:inline-block; background:var(--navy); color:var(--white); padding:13px 28px; border-radius:8px; font-weight:700; font-size:15px;">📅 Get a Real Quote from Dennis</a>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- ── TOOL 2: COST OF LIVING ── -->
+  <div class="resource-block" id="cost-of-living">
+    <div class="block-label">Tool 2 of 3</div>
+    <div class="block-title">Cost of Living Comparison</div>
+    <div class="block-sub">See how North Carolina stacks up against your current state — and estimate your annual savings after the move.</div>
+
+    <div class="col-controls" style="grid-template-columns: 1fr 1fr 1fr;">
+      <div class="fg">
+        <label>Your Current State</label>
+        <select id="from-state" onchange="calcCOL()">
+          <option value="ny">New York</option>
+          <option value="nj">New Jersey</option>
+          <option value="ca">California</option>
+          <option value="il">Illinois</option>
+          <option value="ma">Massachusetts</option>
+          <option value="tx">Texas</option>
+          <option value="fl">Florida</option>
+          <option value="va">Virginia</option>
+          <option value="pa">Pennsylvania</option>
+          <option value="oh">Ohio</option>
+          <option value="md">Maryland</option>
+          <option value="ct">Connecticut</option>
+          <option value="wa">Washington State</option>
+          <option value="co">Colorado</option>
+          <option value="ga">Georgia</option>
+          <option value="mi">Michigan</option>
+          <option value="mn">Minnesota</option>
+          <option value="az">Arizona</option>
+          <option value="tn">Tennessee</option>
+          <option value="sc">South Carolina</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>NC City to Compare</label>
+        <select id="nc-city" onchange="calcCOL()">
+          <option value="greensboro">Greensboro</option>
+          <option value="winston">Winston-Salem</option>
+          <option value="highpoint">High Point</option>
+          <option value="charlotte">Charlotte</option>
+          <option value="raleigh">Raleigh</option>
+          <option value="durham">Durham</option>
+          <option value="chapel_hill">Chapel Hill</option>
+          <option value="cary">Cary</option>
+          <option value="wilmington">Wilmington</option>
+          <option value="asheville">Asheville</option>
+          <option value="fayetteville">Fayetteville</option>
+          <option value="concord">Concord</option>
+          <option value="gastonia">Gastonia</option>
+          <option value="jacksonville">Jacksonville</option>
+          <option value="apex">Apex</option>
+          <option value="huntersville">Huntersville</option>
+          <option value="burlington">Burlington</option>
+          <option value="rocky_mount">Rocky Mount</option>
+          <option value="wilson">Wilson</option>
+          <option value="mooresville">Mooresville</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Annual Household Income</label>
+        <select id="income" onchange="calcCOL()">
+          <option value="50000">$50,000</option>
+          <option value="75000">$75,000</option>
+          <option value="100000" selected>$100,000</option>
+          <option value="125000">$125,000</option>
+          <option value="150000">$150,000</option>
+          <option value="175000">$175,000</option>
+          <option value="200000">$200,000</option>
+          <option value="250000">$250,000+</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-table">
+      <div class="col-table-head">
+        <div class="col-th">Category</div>
+        <div class="col-th" id="other-state-head">New York</div>
+        <div class="col-th nc-col" id="nc-city-head">Greensboro, NC</div>
+      </div>
+      <div class="col-table-row">
+        <div class="col-td category">Median Home Price</div>
+        <div class="col-td other-col worse" id="o-home">$465,000</div>
+        <div class="col-td nc-col" id="nc-home">~$255,000</div>
+      </div>
+      <div class="col-table-row">
+        <div class="col-td category">State Income Tax</div>
+        <div class="col-td other-col worse" id="o-tax">10.9%</div>
+        <div class="col-td nc-col">4.5%</div>
+      </div>
+      <div class="col-table-row">
+        <div class="col-td category">Avg Monthly Rent</div>
+        <div class="col-td other-col worse" id="o-rent">$2,200</div>
+        <div class="col-td nc-col" id="nc-rent">~$1,300</div>
+      </div>
+      <div class="col-table-row">
+        <div class="col-td category">Grocery Cost Index</div>
+        <div class="col-td other-col" id="o-grocery">117 (above avg)</div>
+        <div class="col-td nc-col" id="nc-grocery">93 (below avg)</div>
+      </div>
+      <div class="col-table-row">
+        <div class="col-td category">Overall COL Index</div>
+        <div class="col-td other-col worse" id="o-col">139</div>
+        <div class="col-td nc-col" id="nc-col-val">88</div>
+      </div>
+      <div class="col-table-row">
+        <div class="col-td category">Traffic / Commute</div>
+        <div class="col-td other-col worse" id="o-traffic">Heavy / Long</div>
+        <div class="col-td nc-col" id="nc-traffic">Moderate / Short</div>
+      </div>
+    </div>
+
+    <div class="savings-box">
+      <span class="s-label">💡 Estimated Annual Savings by Moving to NC</span>
+      <span class="s-amount" id="savings-amount">$18,200/yr</span>
+    </div>
+
+    <p style="font-size:12px; color:var(--muted); margin-top:12px;">* Data is approximate and based on publicly available cost of living indices. Actual savings vary by city, lifestyle, and household size.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- ── TOOL 3: AGENT REFERRAL ── -->
+  <div class="resource-block" id="agent-referral">
+    <div class="block-label">Tool 3 of 3</div>
+    <div class="block-title">Connect with a Trusted NC Agent</div>
+    <div class="block-sub">Dennis works with a personally vetted network of NC real estate agents who specialize in helping relocating buyers land the right home fast.</div>
+
+    <div class="agent-intro">
+      <div class="agent-avatar">DF</div>
+      <div class="agent-intro-text">
+        <h3>Why Dennis's Agent Network Is Different</h3>
+        <p>Every agent in my network is personally vetted. They know the neighborhoods, understand relocation timelines, and know how to work alongside your lender so your deal doesn't fall apart. You get a full team — lender and agent — working together from day one. That's how deals close smoothly.</p>
+      </div>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-card"><div class="benefit-icon">🤝</div><h4>Pre-Vetted Agents</h4><p>Only agents Dennis personally trusts with his clients. No strangers, no guessing.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">⚡</div><h4>Fast Introductions</h4><p>Get matched within 1 business day. No waiting, no runaround.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">🏠</div><h4>Lender + Agent Teamwork</h4><p>Your agent and Dennis coordinate so your offer is strong and your close is smooth.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">🗺️</div><h4>Local Market Experts</h4><p>Agents who know the Triad, Charlotte, Triangle, and beyond — not generic referral farms.</p></div>
+    </div>
+
+    <div class="agent-form-card">
+      <h3>🏡 Request Your Agent Match</h3>
+      <iframe
+        src="https://api.leadconnectorhq.com/widget/form/bjID0Efk5FTnwF2Yppz0"
+        class="ghl-agent-iframe"
+        scrolling="no"
+        title="Agent Referral Request Form">
+      </iframe>
+      <p class="form-disclaimer" style="margin-top:16px;">All loans subject to approval. Equal Housing Lender. Dennis Fields · Movement Mortgage · NMLS #1407951</p>
+    </div>
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <div class="bottom-cta">
+    <h2>Ready to Make North Carolina Home?</h2>
+    <p>Let's talk about your timeline, your budget, and the best loan for your move. The consultation is free — the knowledge is priceless.</p>
+    <div class="cta-actions">
+      <a href="https://calendly.com/dennisfieldsmortgagepro" class="btn-gold-lg">📅 Book Your Free Call</a>
+      <a href="https://dennisfieldsmortgagepro.com" class="btn-white-outline">Apply for a Mortgage →</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-nav">
+    <a href="index.html#why-nc">Why NC</a>
+    <a href="index.html#cities">Cities</a>
+    <a href="index.html#mortgage">Mortgage</a>
+    <a href="resources.html">Resources</a>
+    <a href="index.html#get-started">Get Started</a>
+    <a href="https://calendly.com/dennisfieldsmortgagepro">Book a Call</a>
+  </div>
+  <p><strong>Dennis Fields</strong> · Movement Mortgage · NMLS #1407951</p>
+  <p>Licensed in NC · SC · VA &nbsp;|&nbsp; <a href="https://yourlocalmortgagepro.com">yourlocalmortgagepro.com</a> &nbsp;|&nbsp; <a href="https://dennisfieldsmortgagepro.com">Apply Online</a></p>
+  <p>
+    <a href="https://facebook.com/yourlocalmortgagepros">Facebook</a> &nbsp;|&nbsp;
+    <a href="https://instagram.com/dennisfieldsmortgagepro">Instagram</a> &nbsp;|&nbsp;
+    <a href="https://linkedin.com/in/dennis-fields">LinkedIn</a> &nbsp;|&nbsp;
+    <a href="https://maps.app.goo.gl/zuYBrQ4WReoxDLSG7">Google</a>
+  </p>
+  <p style="margin-top:14px;">All loans subject to approval. Equal Housing Lender. &copy; 2025 Dennis Fields · Movement Mortgage</p>
+</footer>
+
+<script>
+  /* ── NAV TOGGLE ── */
+  function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
+  function closeMenu() { document.getElementById('mobile-menu').classList.remove('open'); }
+  document.addEventListener('click', function(e) {
+    var nav = document.getElementById('main-nav');
+    var menu = document.getElementById('mobile-menu');
+    if (!nav.contains(e.target) && !menu.contains(e.target)) menu.classList.remove('open');
+  });
+
+  /* ── MORTGAGE CALCULATOR ── */
+  function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+  function calcMortgage() {
+    var price = parseInt(document.getElementById('price').value);
+    var downPct = parseInt(document.getElementById('down').value);
+    var rate = parseFloat(document.getElementById('rate').value);
+    var term = parseInt(document.getElementById('term').value);
+    document.getElementById('price-out').textContent = fmt(price);
+    document.getElementById('down-out').textContent = downPct + '%';
+    document.getElementById('rate-out').textContent = rate.toFixed(3) + '%';
+    document.getElementById('term-out').textContent = term + ' yrs';
+    var downAmt = price * downPct / 100;
+    var loan = price - downAmt;
+    var mr = rate / 100 / 12;
+    var n = term * 12;
+    var payment = loan * (mr * Math.pow(1 + mr, n)) / (Math.pow(1 + mr, n) - 1);
+    var totalInterest = (payment * n) - loan;
+    document.getElementById('r-loan').textContent = fmt(loan);
+    document.getElementById('r-payment').textContent = fmt(payment) + '/mo';
+    document.getElementById('r-down').textContent = fmt(downAmt);
+    document.getElementById('r-interest').textContent = fmt(totalInterest);
+  }
+
+  /* ── COST OF LIVING ── */
+  var colData = {
+    ny: { name:'New York',       home:'$465,000', tax:'10.9%',  rent:'$2,200', grocery:'117', col:'139', traffic:'Heavy / Very Long',  savings:22000 },
+    nj: { name:'New Jersey',     home:'$450,000', tax:'10.75%', rent:'$2,100', grocery:'110', col:'130', traffic:'Heavy / Long',        savings:19500 },
+    ca: { name:'California',     home:'$750,000', tax:'13.3%',  rent:'$2,500', grocery:'115', col:'151', traffic:'Very Heavy / Long',   savings:28000 },
+    il: { name:'Illinois',       home:'$295,000', tax:'4.95%',  rent:'$1,650', grocery:'103', col:'107', traffic:'Moderate / Medium',   savings:9000  },
+    ma: { name:'Massachusetts',  home:'$540,000', tax:'9.0%',   rent:'$2,400', grocery:'113', col:'141', traffic:'Heavy / Long',        savings:24000 },
+    tx: { name:'Texas',          home:'$335,000', tax:'0%',     rent:'$1,700', grocery:'99',  col:'102', traffic:'Heavy / Medium',      savings:5500  },
+    fl: { name:'Florida',        home:'$405,000', tax:'0%',     rent:'$1,950', grocery:'102', col:'106', traffic:'Heavy / Medium',      savings:7800  },
+    va: { name:'Virginia',       home:'$380,000', tax:'5.75%',  rent:'$1,850', grocery:'101', col:'108', traffic:'Moderate / Medium',   savings:10500 },
+    pa: { name:'Pennsylvania',   home:'$260,000', tax:'3.07%',  rent:'$1,500', grocery:'100', col:'99',  traffic:'Moderate / Medium',   savings:3500  },
+    oh: { name:'Ohio',           home:'$225,000', tax:'3.99%',  rent:'$1,200', grocery:'96',  col:'90',  traffic:'Light / Short',       savings:1200  },
+    md: { name:'Maryland',       home:'$420,000', tax:'5.75%',  rent:'$2,000', grocery:'108', col:'124', traffic:'Heavy / Long',        savings:17000 },
+    ct: { name:'Connecticut',    home:'$380,000', tax:'6.99%',  rent:'$1,900', grocery:'112', col:'128', traffic:'Moderate / Long',     savings:16000 },
+    wa: { name:'Washington St.', home:'$560,000', tax:'0%',     rent:'$2,300', grocery:'116', col:'145', traffic:'Very Heavy / Long',   savings:25000 },
+    co: { name:'Colorado',       home:'$540,000', tax:'4.55%',  rent:'$2,100', grocery:'108', col:'133', traffic:'Heavy / Long',        savings:20000 },
+    ga: { name:'Georgia',        home:'$330,000', tax:'5.75%',  rent:'$1,750', grocery:'100', col:'103', traffic:'Heavy / Long',        savings:7000  },
+    mi: { name:'Michigan',       home:'$240,000', tax:'4.25%',  rent:'$1,400', grocery:'98',  col:'94',  traffic:'Moderate / Medium',   savings:2500  },
+    mn: { name:'Minnesota',      home:'$330,000', tax:'9.85%',  rent:'$1,600', grocery:'101', col:'105', traffic:'Moderate / Medium',   savings:11000 },
+    az: { name:'Arizona',        home:'$420,000', tax:'2.5%',   rent:'$1,800', grocery:'103', col:'110', traffic:'Heavy / Medium',      savings:9500  },
+    tn: { name:'Tennessee',      home:'$325,000', tax:'0%',     rent:'$1,600', grocery:'97',  col:'97',  traffic:'Moderate / Medium',   savings:4500  },
+    sc: { name:'South Carolina', home:'$295,000', tax:'6.5%',   rent:'$1,550', grocery:'97',  col:'98',  traffic:'Light / Short',       savings:3000  }
+  };
+
+  var ncCityData = {
+    greensboro:  { name:'Greensboro, NC',     home:'~$265,000', rent:'~$1,300', grocery:'91', col:'87', traffic:'Moderate / Short' },
+    winston:     { name:'Winston-Salem, NC',  home:'~$245,000', rent:'~$1,200', grocery:'90', col:'85', traffic:'Light / Short'     },
+    highpoint:   { name:'High Point, NC',     home:'~$230,000', rent:'~$1,150', grocery:'90', col:'84', traffic:'Light / Short'     },
+    charlotte:   { name:'Charlotte, NC',      home:'~$385,000', rent:'~$1,700', grocery:'97', col:'98', traffic:'Heavy / Medium'    },
+    raleigh:     { name:'Raleigh, NC',        home:'~$400,000', rent:'~$1,750', grocery:'98', col:'100','traffic':'Moderate / Medium'},
+    durham:      { name:'Durham, NC',         home:'~$370,000', rent:'~$1,650', grocery:'97', col:'97', traffic:'Moderate / Medium' },
+    chapel_hill: { name:'Chapel Hill, NC',    home:'~$430,000', rent:'~$1,800', grocery:'103','col':'105','traffic':'Moderate / Medium'},
+    cary:        { name:'Cary, NC',           home:'~$450,000', rent:'~$1,800', grocery:'99', col:'102','traffic':'Moderate / Medium'},
+    wilmington:  { name:'Wilmington, NC',     home:'~$350,000', rent:'~$1,500', grocery:'96', col:'96', traffic:'Light / Short'     },
+    asheville:   { name:'Asheville, NC',      home:'~$410,000', rent:'~$1,700', grocery:'101','col':'104','traffic':'Light / Short'  },
+    fayetteville:{ name:'Fayetteville, NC',   home:'~$210,000', rent:'~$1,100', grocery:'88', col:'82', traffic:'Light / Short'     },
+    concord:     { name:'Concord, NC',        home:'~$320,000', rent:'~$1,450', grocery:'95', col:'93', traffic:'Moderate / Short'  },
+    gastonia:    { name:'Gastonia, NC',       home:'~$255,000', rent:'~$1,200', grocery:'91', col:'86', traffic:'Light / Short'     },
+    jacksonville:{ name:'Jacksonville, NC',   home:'~$215,000', rent:'~$1,050', grocery:'88', col:'82', traffic:'Light / Short'     },
+    apex:        { name:'Apex, NC',           home:'~$460,000', rent:'~$1,850', grocery:'99', col:'103','traffic':'Moderate / Medium'},
+    huntersville:{ name:'Huntersville, NC',   home:'~$400,000', rent:'~$1,700', grocery:'97', col:'100','traffic':'Moderate / Medium'},
+    burlington:  { name:'Burlington, NC',     home:'~$225,000', rent:'~$1,100', grocery:'89', col:'83', traffic:'Light / Short'     },
+    rocky_mount: { name:'Rocky Mount, NC',    home:'~$195,000', rent:'~$1,000', grocery:'87', col:'80', traffic:'Light / Short'     },
+    wilson:      { name:'Wilson, NC',         home:'~$185,000', rent:'~$950',   grocery:'86', col:'79', traffic:'Light / Short'     },
+    mooresville: { name:'Mooresville, NC',    home:'~$420,000', rent:'~$1,750', grocery:'97', col:'101','traffic':'Moderate / Short' }
+  };
+
+  function calcCOL() {
+    var stateKey = document.getElementById('from-state').value;
+    var cityKey  = document.getElementById('nc-city').value;
+    var income   = parseInt(document.getElementById('income').value);
+    var s = colData[stateKey];
+    var c = ncCityData[cityKey];
+
+    // Update state column
+    document.getElementById('other-state-head').textContent = s.name;
+    document.getElementById('o-home').textContent    = s.home;
+    document.getElementById('o-tax').textContent     = s.tax;
+    document.getElementById('o-rent').textContent    = s.rent;
+    document.getElementById('o-grocery').textContent = s.grocery + ' (index)';
+    document.getElementById('o-col').textContent     = s.col + ' (index)';
+    document.getElementById('o-traffic').textContent = s.traffic;
+
+    // Update NC city column
+    document.getElementById('nc-city-head').textContent  = c.name;
+    document.getElementById('nc-home').textContent        = c.home;
+    document.getElementById('nc-rent').textContent        = c.rent;
+    document.getElementById('nc-grocery').textContent     = c.grocery + ' (index)';
+    document.getElementById('nc-col-val').textContent     = c.col + ' (index)';
+    document.getElementById('nc-traffic').textContent     = c.traffic;
+
+    // Savings estimate: scale base savings by income ratio, then adjust for NC city cost
+    var ncColNum    = parseInt(c.col);
+    var cityFactor  = ncColNum < 90 ? 1.15 : ncColNum < 100 ? 1.0 : 0.80;
+    var savings     = Math.round(s.savings * (income / 100000) * cityFactor);
+    document.getElementById('savings-amount').textContent = '$' + savings.toLocaleString() + '/yr';
+  }
+
+  /* ── INIT ── */
+  calcMortgage();
+  calcCOL();
+</script>
+
+</body>
+</html>

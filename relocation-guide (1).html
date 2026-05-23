@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Your Personalized NC Relocation Guide | Dennis Fields</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0C2340;
+  --navy-mid: #1a3a5c;
+  --gold: #C8952A;
+  --gold-light: #F5E6C8;
+  --white: #FFFFFF;
+  --off-white: #F7F5F0;
+  --text: #1A1A1A;
+  --muted: #5A5A5A;
+  --border: #E2DDD5;
+  --radius: 12px;
+  --green: #1a7a3c;
+  --red: #B33A3A;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Source Sans 3', sans-serif; color: var(--text); background: var(--off-white); font-size: 16px; line-height: 1.6; }
+a { text-decoration: none; }
+
+/* NAV */
+nav { background: var(--navy); padding: 0 40px; display: flex; justify-content: space-between; align-items: center; height: 64px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.nav-brand { color: var(--white); font-family: 'Playfair Display', serif; font-size: 19px; }
+.nav-brand span { color: var(--gold); }
+.nav-links { display: flex; gap: 6px; align-items: center; }
+.nav-links a { color: rgba(255,255,255,0.75); font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: color 0.2s, background 0.2s; }
+.nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.07); }
+.nav-links a.active { color: var(--gold); background: rgba(200,149,42,0.12); }
+.nav-cta { background: var(--gold); color: var(--navy) !important; padding: 9px 18px; border-radius: 6px; font-weight: 700; font-size: 13px; margin-left: 8px; transition: opacity 0.2s; }
+.nav-cta:hover { opacity: 0.88; }
+.nav-mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 4px; }
+.nav-mobile-toggle span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
+.mobile-menu { display: none; background: var(--navy); border-top: 1px solid rgba(255,255,255,0.08); padding: 12px 20px 20px; flex-direction: column; gap: 4px; }
+.mobile-menu a { color: rgba(255,255,255,0.80); font-size: 15px; padding: 10px 12px; border-radius: 6px; font-weight: 500; display: block; }
+.mobile-menu a.active { color: var(--gold); }
+.mobile-menu .mob-cta { background: var(--gold); color: var(--navy); font-weight: 700; margin-top: 8px; text-align: center; border-radius: 8px; }
+
+/* PAGE HEADER */
+.page-header { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); padding: 64px 40px 56px; text-align: center; position: relative; overflow: hidden; }
+.page-header::before { content:''; position:absolute; top:-80px; right:-80px; width:360px; height:360px; border-radius:50%; background:rgba(200,149,42,0.07); pointer-events:none; }
+.page-eyebrow { display:inline-block; background:rgba(200,149,42,0.18); color:var(--gold); font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:6px 18px; border-radius:100px; margin-bottom:20px; }
+.page-header h1 { font-family:'Playfair Display',serif; color:var(--white); font-size:42px; line-height:1.18; margin-bottom:14px; }
+.page-header h1 span { color: var(--gold); }
+.page-header p { color:rgba(255,255,255,0.68); font-size:17px; max-width:540px; margin:0 auto; }
+
+/* MAIN LAYOUT */
+.main-wrap { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
+
+/* INPUT CARD */
+.input-card { background: var(--navy); border-radius: 16px; padding: 36px 32px; margin-bottom: 24px; position: relative; overflow: hidden; }
+.input-card::before { content:''; position:absolute; top:-80px; right:-80px; width:260px; height:260px; border-radius:50%; background:rgba(200,149,42,0.07); pointer-events:none; }
+.input-eyebrow { color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+.input-title { color: var(--white); font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.input-sub { color: rgba(255,255,255,0.60); font-size: 14px; margin-bottom: 28px; line-height: 1.6; }
+
+.city-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 22px; }
+.field-group { display: flex; flex-direction: column; gap: 7px; }
+.field-label { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.70); text-transform: uppercase; letter-spacing: 1px; }
+.city-field {
+  background: rgba(255,255,255,0.10);
+  border: 1.5px solid rgba(255,255,255,0.20);
+  border-radius: 8px;
+  padding: 12px 15px;
+  font-size: 15px;
+  color: var(--white);
+  font-family: 'Source Sans 3', sans-serif;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+}
+.city-field::placeholder { color: rgba(255,255,255,0.35); }
+.city-field:focus { border-color: var(--gold); background: rgba(255,255,255,0.14); }
+
+.persona-label { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.70); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.persona-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
+.persona-btn {
+  background: rgba(255,255,255,0.10);
+  border: 2px solid rgba(255,255,255,0.20);
+  border-radius: 10px;
+  padding: 14px 10px;
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+  font-family: 'Source Sans 3', sans-serif;
+  line-height: 1.4;
+}
+.persona-btn:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.40); }
+.persona-btn.selected { background: var(--gold); border-color: var(--gold); color: var(--navy); font-weight: 700; }
+.persona-icon { display: block; font-size: 22px; margin-bottom: 5px; }
+
+.gate-section { margin-bottom: 22px; }
+.gate-title { color: var(--white); font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+.gate-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+.gen-btn {
+  width: 100%;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  padding: 16px 24px;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: 'Source Sans 3', sans-serif;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+.gen-btn:hover { opacity: 0.88; }
+.gen-btn:active { transform: scale(0.99); }
+.gen-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* LOADING */
+.loading-card { display: none; background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 48px 32px; text-align: center; margin-bottom: 24px; }
+.spinner { width: 44px; height: 44px; border: 3px solid var(--border); border-top-color: var(--navy); border-radius: 50%; animation: spin 0.85s linear infinite; margin: 0 auto 18px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-title { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.loading-sub { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+.loading-pills { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+.loading-pill { background: var(--navy); color: rgba(255,255,255,0.75); font-size: 12px; padding: 5px 14px; border-radius: 100px; }
+
+/* ERROR */
+.error-card { display: none; background: #fff0f0; border: 1px solid #f0a0a0; border-radius: 12px; padding: 16px 20px; color: #a03030; font-size: 14px; margin-bottom: 20px; font-weight: 500; }
+
+/* MAGAZINE */
+.magazine { display: none; }
+
+.mag-cover { background: var(--navy); border-radius: 16px; overflow: hidden; margin-bottom: 16px; }
+.mag-cover-body { padding: 34px 30px 26px; }
+.mag-issue { color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 8px; }
+.mag-h1 { font-family: 'Playfair Display', serif; color: var(--white); font-size: 30px; line-height: 1.18; margin-bottom: 10px; }
+.mag-h1 em { color: var(--gold); font-style: normal; }
+.mag-tagline { color: rgba(255,255,255,0.65); font-size: 14px; line-height: 1.65; margin-bottom: 22px; }
+.mag-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.mag-pill { background: rgba(200,149,42,0.20); color: var(--gold); font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 100px; }
+.mag-footer { background: var(--gold); padding: 13px 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.mag-footer span { font-size: 12px; color: var(--navy); font-weight: 600; }
+
+/* SECTION CARDS */
+.sec { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 26px 28px; margin-bottom: 14px; }
+.sec-eyebrow { color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 6px; }
+.sec-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--navy); margin-bottom: 16px; line-height: 1.25; }
+.sec-body { font-size: 14px; color: var(--muted); line-height: 1.75; }
+.sec-body h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin: 16px 0 6px; }
+.sec-body ul { list-style: none; padding: 0; }
+.sec-body ul li { padding: 5px 0 5px 18px; position: relative; font-size: 14px; color: var(--muted); border-bottom: 1px solid var(--border); line-height: 1.55; }
+.sec-body ul li:last-child { border-bottom: none; }
+.sec-body ul li::before { content:''; position:absolute; left:0; top:12px; width:6px; height:6px; background:var(--gold); border-radius:50%; }
+
+/* STAT GRID */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-bottom: 18px; }
+.stat-box { background: var(--off-white); border: 1px solid var(--border); border-radius: 10px; padding: 12px 10px; text-align: center; }
+.stat-lbl { font-size: 10px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+.stat-val { font-size: 16px; font-weight: 700; color: var(--navy); }
+
+/* PERSONA CARDS */
+.persona-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 16px; }
+.pcard { border-radius: 10px; padding: 16px; }
+.pcard.family { background: #EEF4FB; border: 1px solid #BDD0E8; }
+.pcard.single { background: var(--gold-light); border: 1px solid var(--gold); }
+.pcard.retire { background: #EEF9F1; border: 1px solid #A8D5B5; }
+.pcard-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+.pcard.family .pcard-title { color: #1a4a7a; }
+.pcard.single .pcard-title { color: #7a4a0a; }
+.pcard.retire .pcard-title { color: #1a5a30; }
+.pcard-body { font-size: 13px; line-height: 1.65; color: var(--muted); }
+
+/* DENNIS NOTE */
+.dennis-note { border-left: 4px solid var(--gold); background: var(--gold-light); border-radius: 0 12px 12px 0; }
+
+/* CTA STRIP */
+.cta-strip { background: var(--navy); border-radius: 14px; padding: 26px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 18px; }
+.cta-strip-text h3 { color: var(--white); font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+.cta-strip-text p { color: rgba(255,255,255,0.60); font-size: 13px; }
+.cta-strip-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-gold { background: var(--gold); color: var(--navy); padding: 12px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; display: inline-block; transition: opacity 0.2s; }
+.btn-gold:hover { opacity: 0.88; color: var(--navy); }
+.btn-white { border: 1.5px solid rgba(255,255,255,0.35); color: var(--white); padding: 12px 22px; border-radius: 8px; font-weight: 600; font-size: 14px; display: inline-block; transition: background 0.2s; }
+.btn-white:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+
+/* RESET BTN */
+.reset-btn { display: block; margin: 20px auto 0; background: none; border: 1.5px solid var(--border); padding: 11px 28px; border-radius: 8px; font-size: 14px; font-weight: 600; color: var(--muted); cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: all 0.2s; }
+.reset-btn:hover { border-color: var(--navy); color: var(--navy); }
+
+/* FOOTER */
+footer { background: #081828; color: rgba(255,255,255,0.50); text-align: center; padding: 30px 40px; font-size: 13px; line-height: 1.9; }
+footer a { color: var(--gold); }
+footer strong { color: rgba(255,255,255,0.78); }
+.footer-nav { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; margin-bottom: 12px; }
+.footer-nav a { color: rgba(255,255,255,0.55); font-size: 13px; font-weight: 500; transition: color 0.2s; }
+.footer-nav a:hover { color: var(--gold); }
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  nav { padding: 0 18px; }
+  .nav-links { display: none; }
+  .nav-mobile-toggle { display: flex; }
+  .mobile-menu { display: none; }
+  .mobile-menu.open { display: flex; }
+  .page-header { padding: 48px 20px 44px; }
+  .page-header h1 { font-size: 28px; }
+  .main-wrap { padding: 28px 16px 60px; }
+  .input-card { padding: 24px 18px; }
+  .city-row { grid-template-columns: 1fr; }
+  .persona-row { grid-template-columns: 1fr; gap: 8px; }
+  .gate-row { grid-template-columns: 1fr; }
+  .sec { padding: 20px 18px; }
+  .mag-cover-body { padding: 24px 20px 20px; }
+  .mag-footer { flex-direction: column; text-align: center; }
+  .cta-strip { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-brand">Relocate to <span>North Carolina</span></a>
+  <div class="nav-links">
+    <a href="index.html#why-nc">Why NC</a>
+    <a href="index.html#cities">Cities</a>
+    <a href="index.html#mortgage">Mortgage</a>
+    <a href="resources.html">Resources</a>
+    <a href="index.html#get-started">Get Started</a>
+    <a href="relocation-guide.html" class="active">My NC Guide</a>
+    <a href="https://calendly.com/dennisfieldsmortgagepro" class="nav-cta">📅 Book a Call</a>
+  </div>
+  <button class="nav-mobile-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html#why-nc" onclick="closeMenu()">Why NC</a>
+  <a href="index.html#cities" onclick="closeMenu()">Cities</a>
+  <a href="index.html#mortgage" onclick="closeMenu()">Mortgage</a>
+  <a href="resources.html" onclick="closeMenu()">Resources</a>
+  <a href="index.html#get-started" onclick="closeMenu()">Get Started</a>
+  <a href="relocation-guide.html" class="active" onclick="closeMenu()">My NC Guide</a>
+  <a href="https://calendly.com/dennisfieldsmortgagepro" class="mob-cta">📅 Book a Free Call</a>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-eyebrow">AI-Powered · Personalized · Free</div>
+  <h1>Your <span>Personalized</span> NC Relocation Magazine</h1>
+  <p>Enter where you're coming from and where you want to go in NC — our AI builds a custom guide in seconds just for you.</p>
+</div>
+
+<div class="main-wrap">
+
+  <!-- INPUT CARD -->
+  <div class="input-card" id="input-card">
+    <div class="input-eyebrow">Step 1 of 2 — Tell Us About Your Move</div>
+    <div class="input-title">Where are you moving from and to?</div>
+    <div class="input-sub">Be as specific as you want — city and state works great.</div>
+
+    <div class="city-row">
+      <div class="field-group">
+        <label class="field-label" for="from-city">Moving From</label>
+        <input class="city-field" type="text" id="from-city" placeholder="e.g. New York, NY" autocomplete="off"/>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="to-city">NC Destination</label>
+        <input class="city-field" type="text" id="to-city" placeholder="e.g. Greensboro, NC" autocomplete="off"/>
+      </div>
+    </div>
+
+    <div class="persona-label">I am primarily a...</div>
+    <div class="persona-row">
+      <button class="persona-btn selected" id="pb-family" onclick="selectPersona('family')">
+        <span class="persona-icon">👨‍👩‍👧</span>Family
+      </button>
+      <button class="persona-btn" id="pb-single" onclick="selectPersona('single')">
+        <span class="persona-icon">💼</span>Single / Young Professional
+      </button>
+      <button class="persona-btn" id="pb-retiree" onclick="selectPersona('retiree')">
+        <span class="persona-icon">🌅</span>Retiree
+      </button>
+    </div>
+
+    <div class="gate-section">
+      <div class="gate-title">Step 2 — Where should we send your guide?</div>
+      <div class="gate-row">
+        <div class="field-group">
+          <label class="field-label" for="g-name">First Name</label>
+          <input class="city-field" type="text" id="g-name" placeholder="Jane" autocomplete="off"/>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="g-email">Email Address</label>
+          <input class="city-field" type="email" id="g-email" placeholder="jane@email.com" autocomplete="off"/>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="g-phone">Phone Number</label>
+          <input class="city-field" type="tel" id="g-phone" placeholder="(555) 000-0000" autocomplete="off"/>
+        </div>
+      </div>
+    </div>
+
+    <button class="gen-btn" id="gen-btn" onclick="generateGuide()">
+      🗺️ &nbsp; Generate My Free NC Relocation Guide
+    </button>
+  </div>
+
+  <!-- ERROR -->
+  <div class="error-card" id="error-card"></div>
+
+  <!-- LOADING -->
+  <div class="loading-card" id="loading-card">
+    <div class="spinner"></div>
+    <div class="loading-title">Building your personalized NC guide...</div>
+    <div class="loading-sub">Our AI is researching your cities and crafting your report. This takes about 30 seconds.</div>
+    <div class="loading-pills">
+      <span class="loading-pill">Comparing cities</span>
+      <span class="loading-pill">Finding schools</span>
+      <span class="loading-pill">Local restaurants</span>
+      <span class="loading-pill">Hospitals & healthcare</span>
+      <span class="loading-pill">Nightlife & activities</span>
+      <span class="loading-pill">Mortgage insights</span>
+    </div>
+  </div>
+
+  <!-- MAGAZINE OUTPUT -->
+  <div class="magazine" id="magazine"></div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-nav">
+    <a href="index.html#why-nc">Why NC</a>
+    <a href="index.html#cities">Cities</a>
+    <a href="index.html#mortgage">Mortgage</a>
+    <a href="resources.html">Resources</a>
+    <a href="relocation-guide.html">My NC Guide</a>
+    <a href="https://calendly.com/dennisfieldsmortgagepro">Book a Call</a>
+  </div>
+  <p><strong>Dennis Fields</strong> · Movement Mortgage · NMLS #1407951</p>
+  <p>Licensed in NC · SC · VA &nbsp;|&nbsp; <a href="https://yourlocalmortgagepro.com">yourlocalmortgagepro.com</a> &nbsp;|&nbsp; <a href="https://dennisfieldsmortgagepro.com">Apply Online</a></p>
+  <p style="margin-top:12px;">All loans subject to approval. Equal Housing Lender. &copy; 2025 Dennis Fields · Movement Mortgage</p>
+</footer>
+
+<script>
+var persona = 'family';
+
+function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
+function closeMenu() { document.getElementById('mobile-menu').classList.remove('open'); }
+
+function selectPersona(val) {
+  persona = val;
+  ['family','single','retiree'].forEach(function(p) {
+    var btn = document.getElementById('pb-' + p);
+    if (p === val) { btn.classList.add('selected'); }
+    else { btn.classList.remove('selected'); }
+  });
+}
+
+function showError(msg) {
+  var e = document.getElementById('error-card');
+  e.textContent = msg;
+  e.style.display = 'block';
+  setTimeout(function(){ e.style.display = 'none'; }, 6000);
+}
+
+async function generateGuide() {
+  var fromCity = document.getElementById('from-city').value.trim();
+  var toCity   = document.getElementById('to-city').value.trim();
+  var name     = document.getElementById('g-name').value.trim();
+  var email    = document.getElementById('g-email').value.trim();
+  var phone    = document.getElementById('g-phone').value.trim();
+
+  if (!fromCity || !toCity) { showError('Please enter both your current city and your NC destination.'); return; }
+  if (!name || !email || !phone) { showError('Please fill in your name, email, and phone so we can send you a copy of your guide.'); return; }
+
+  var btn = document.getElementById('gen-btn');
+  btn.disabled = true;
+  btn.textContent = 'Generating your guide...';
+  document.getElementById('loading-card').style.display = 'block';
+  document.getElementById('magazine').style.display = 'none';
+  document.getElementById('magazine').innerHTML = '';
+
+  var personaLabel = persona === 'family' ? 'Families'
+    : persona === 'single' ? 'Singles & Young Professionals' : 'Retirees';
+
+  var prompt = `You are an expert NC relocation advisor. Someone named ${name} is moving from ${fromCity} to ${toCity}, NC. They identify as: ${personaLabel}.
+
+Generate a comprehensive magazine-style relocation guide as a JSON object. Return ONLY valid JSON with no markdown, no backticks, no preamble.
+
+{
+  "headline": "short punchy headline about this specific move",
+  "tagline": "one compelling sentence about why this move makes sense",
+  "pills": ["4 short highlight tags about this move"],
+  "stats": [
+    {"label": "Population", "value": "XXX,XXX"},
+    {"label": "Median Home", "value": "$XXX,XXX"},
+    {"label": "Cost of Living", "value": "XX% below US avg"},
+    {"label": "Avg Commute", "value": "XX min"},
+    {"label": "School Rating", "value": "X/10"},
+    {"label": "Unemployment", "value": "X.X%"}
+  ],
+  "city_overview": "3-4 vivid sentences about the NC destination character and vibe. Be specific.",
+  "coming_from": "2-3 sentences specifically about transitioning from their origin city. Mention real differences in cost, pace, culture.",
+  "neighborhoods": {
+    "intro": "1-2 sentences",
+    "list": [
+      {"name": "Name", "vibe": "1 sentence — price range, who it is best for"},
+      {"name": "Name", "vibe": "..."},
+      {"name": "Name", "vibe": "..."},
+      {"name": "Name", "vibe": "..."}
+    ]
+  },
+  "schools": {
+    "intro": "1-2 sentences about the overall school district quality",
+    "public": ["School Name - grades served, brief note", "School Name - ...", "School Name - ..."],
+    "private": ["School Name - brief note", "School Name - ..."],
+    "higher_ed": ["Institution - brief note"]
+  },
+  "hospitals": {
+    "intro": "1-2 sentences",
+    "list": [
+      {"name": "Hospital Name", "ranking": "US News ranking or specialty", "note": "brief note"},
+      {"name": "Hospital Name", "ranking": "...", "note": "..."}
+    ]
+  },
+  "worship": {
+    "intro": "1 sentence",
+    "list": ["Name - denomination/type", "Name - ...", "Name - ...", "Name - ...", "Name - ..."]
+  },
+  "restaurants": {
+    "intro": "1-2 sentences about the food scene",
+    "categories": [
+      {"category": "Local Favorites", "picks": ["Name - cuisine, neighborhood", "Name - ...", "Name - ..."]},
+      {"category": "Fine Dining", "picks": ["Name - ...", "Name - ..."]},
+      {"category": "Casual and Family", "picks": ["Name - ...", "Name - ...", "Name - ..."]},
+      {"category": "Brunch and Coffee", "picks": ["Name - ...", "Name - ..."]}
+    ]
+  },
+  "family_activities": ["Activity or venue - brief note", "...", "...", "...", "...", "..."],
+  "nightlife": ["Venue or district - brief note", "...", "...", "...", "..."],
+  "outdoor_recreation": ["Park or activity - brief note", "...", "...", "...", "..."],
+  "shopping": ["Mall or district - brief note", "...", "...", "..."],
+  "persona_insights": {
+    "families": "3-4 sentences about family life in this NC city - schools, safety, neighborhoods, activities",
+    "singles": "3-4 sentences about young professional life - career, social scene, housing, lifestyle",
+    "retirees": "3-4 sentences about retirement quality - healthcare, community, cost, activities"
+  },
+  "denniss_take": "2-3 sentences written warmly as Dennis Fields, a 20-year NC mortgage expert. Personal and expert. Mention something specific he loves about this city and a quick mortgage tip for someone coming from their origin city.",
+  "adjustment_tips": ["One honest adjustment tip specific to this city", "...", "...", "..."],
+  "mortgage_insight": "2-3 sentences about the mortgage market in this specific NC city - price range, best loan types (FHA, USDA, VA, conventional, DPA), down payment assistance, and what buyers from their origin city should know."
+}`;
+
+  try {
+    var resp = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fromCity: fromCity,
+        toCity: toCity,
+        persona: persona,
+        name: name
+      })
+    });
+
+    if (!resp.ok) { throw new Error('API error ' + resp.status); }
+    var d = await resp.json();
+    if (d.error) { throw new Error(d.error); }
+    renderMagazine(d, fromCity, toCity, name);
+
+  } catch(err) {
+    document.getElementById('loading-card').style.display = 'none';
+    showError('Something went wrong generating your guide. Please try again in a moment.');
+    btn.disabled = false;
+    btn.textContent = 'Generate My Free NC Relocation Guide';
+  }
+}
+
+function li(arr) {
+  return (arr || []).map(function(i){ return '<li>' + i + '</li>'; }).join('');
+}
+
+function renderMagazine(d, fromCity, toCity, name) {
+  document.getElementById('loading-card').style.display = 'none';
+  document.getElementById('input-card').style.display = 'none';
+
+  var personaLabel = persona === 'family' ? 'Families'
+    : persona === 'single' ? 'Singles & Young Professionals' : 'Retirees';
+
+  var statsHtml = (d.stats || []).map(function(s){
+    return '<div class="stat-box"><div class="stat-lbl">' + s.label + '</div><div class="stat-val">' + s.value + '</div></div>';
+  }).join('');
+
+  var pillsHtml = (d.pills || []).map(function(p){
+    return '<span class="mag-pill">' + p + '</span>';
+  }).join('');
+
+  var nbHtml = (d.neighborhoods && d.neighborhoods.list || []).map(function(n){
+    return '<li><strong>' + n.name + '</strong> — ' + n.vibe + '</li>';
+  }).join('');
+
+  var schoolsHtml = '';
+  if (d.schools) {
+    if (d.schools.public && d.schools.public.length) schoolsHtml += '<h4>Public Schools</h4><ul>' + li(d.schools.public) + '</ul>';
+    if (d.schools.private && d.schools.private.length) schoolsHtml += '<h4>Private Schools</h4><ul>' + li(d.schools.private) + '</ul>';
+    if (d.schools.higher_ed && d.schools.higher_ed.length) schoolsHtml += '<h4>Higher Education</h4><ul>' + li(d.schools.higher_ed) + '</ul>';
+  }
+
+  var hospHtml = (d.hospitals && d.hospitals.list || []).map(function(h){
+    return '<li><strong>' + h.name + '</strong>' + (h.ranking ? ' <em>(' + h.ranking + ')</em>' : '') + ' — ' + h.note + '</li>';
+  }).join('');
+
+  var restHtml = (d.restaurants && d.restaurants.categories || []).map(function(c){
+    return '<h4>' + c.category + '</h4><ul>' + li(c.picks) + '</ul>';
+  }).join('');
+
+  var mag = document.getElementById('magazine');
+  mag.style.display = 'block';
+  mag.innerHTML = `
+    <div class="mag-cover">
+      <div class="mag-cover-body">
+        <div class="mag-issue">NC Relocation Intelligence &nbsp;·&nbsp; Personalized for ${name} &nbsp;·&nbsp; ${personaLabel}</div>
+        <div class="mag-h1">${d.headline || 'Your NC Relocation Guide'}</div>
+        <div class="mag-tagline">${d.tagline || ''}</div>
+        <div class="mag-pills">${pillsHtml}</div>
+      </div>
+      <div class="mag-footer">
+        <span>Dennis Fields · Movement Mortgage · NMLS #1407951</span>
+        <span>relocate2northcarolina.com</span>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-eyebrow">City at a Glance</div>
+      <div class="sec-title">${toCity} — The Essentials</div>
+      <div class="stat-grid">${statsHtml}</div>
+      <div class="sec-body">${d.city_overview || ''}</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-eyebrow">Coming from ${fromCity}</div>
+      <div class="sec-title">What to Expect from the Transition</div>
+      <div class="sec-body">${d.coming_from || ''}</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-eyebrow">Where to Live</div>
+      <div class="sec-title">Neighborhoods Guide</div>
+      <div class="sec-body"><p style="margin-bottom:10px;">${(d.neighborhoods && d.neighborhoods.intro) || ''}</p><ul>${nbHtml}</ul></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-eyebrow">Education</div>
+      <div class="sec-title">Schools Directory</div>
+      <div class="sec-body"><p style="margin-bottom:10px;">${(d.schools && d.schools.intro) || ''}</p>${schoolsHtml}</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-eyebrow">Healthcare</div>
+      <div class="sec-title">Hospitals & Medical Centers</div>
+      <div class="sec-body"><p style="margin-bottom:10px;">${(d.hospitals && d.hospitals.intro) || ''}</p><ul>${hospHtml}</ul></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-eyebrow">Faith Community</div>
+      <div class="sec-title">Places of Worship</div>
+      <div class="sec-body"><p style="margin-bottom:10px;">${(d.worship && d.worship.intro) || ''}</p><ul>${li(d.worship && d.worship.list)}</ul></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-eyebrow">Food Scene</div>
+      <div class="sec-title">Restaurants & Dining</div>
+      <div class="sec-body"><p style="margin-bottom:10px;">${(d.restaurants && d.restaurants.intro) || ''}</p>${restHtml}</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-eyebrow">Family Life</div>
+      <div class="sec-title">Activities for Kids & Families</div>
+      <div class="sec-body"><ul>${li(d.family_activities)}</ul></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-eyebrow">Social Life</div>
+      <div class="sec-title">Nightlife & Entertainment</div>
+      <div class="sec-body"><ul>${li(d.nightlife)}</ul></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-eyebrow">Get Outside</div>
+      <div class="sec-title">Outdoor Recreation & Parks</div>
+      <div class="sec-body"><ul>${li(d.outdoor_recreation)}</ul></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-eyebrow">Shopping</div>
+      <div class="sec-title">Shopping & Retail</div>
+      <div class="sec-body"><ul>${li(d.shopping)}</ul></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-eyebrow">Who Is This City Best For?</div>
+      <div class="sec-title">Life in ${toCity} by Lifestyle</div>
+      <div class="sec-body">
+        <div class="persona-cards">
+          <div class="pcard family"><div class="pcard-title">👨‍👩‍👧 For Families</div><div class="pcard-body">${(d.persona_insights && d.persona_insights.families) || ''}</div></div>
+          <div class="pcard single"><div class="pcard-title">💼 Singles & Young Professionals</div><div class="pcard-body">${(d.persona_insights && d.persona_insights.singles) || ''}</div></div>
+          <div class="pcard retire"><div class="pcard-title">🌅 Retirees</div><div class="pcard-body">${(d.persona_insights && d.persona_insights.retirees) || ''}</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec dennis-note">
+      <div class="sec-eyebrow">Expert Insight</div>
+      <div class="sec-title">A Note from Dennis Fields</div>
+      <div class="sec-body">${d.denniss_take || ''}</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-eyebrow">Home Buying in ${toCity}</div>
+      <div class="sec-title">Mortgage Insight</div>
+      <div class="sec-body">${d.mortgage_insight || ''}</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-eyebrow">Honest Advice</div>
+      <div class="sec-title">Things to Prepare For</div>
+      <div class="sec-body"><ul>${li(d.adjustment_tips)}</ul></div>
+    </div>
+
+    <div class="cta-strip">
+      <div class="cta-strip-text">
+        <h3>Ready to buy a home in ${toCity}?</h3>
+        <p>Dennis Fields · Movement Mortgage · NMLS #1407951 · Licensed in NC, SC & VA</p>
+      </div>
+      <div class="cta-strip-btns">
+        <a href="https://calendly.com/dennisfieldsmortgagepro" class="btn-gold">📅 Book a Free Call</a>
+        <a href="https://dennisfieldsmortgagepro.com" class="btn-white">Apply Online →</a>
+      </div>
+    </div>
+
+    <button class="reset-btn" onclick="resetGuide()">Generate a New Guide</button>
+  `;
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetGuide() {
+  document.getElementById('magazine').style.display = 'none';
+  document.getElementById('magazine').innerHTML = '';
+  document.getElementById('input-card').style.display = 'block';
+  document.getElementById('gen-btn').disabled = false;
+  document.getElementById('gen-btn').textContent = 'Generate My Free NC Relocation Guide';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

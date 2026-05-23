@@ -1,35 +1,30 @@
 export default async function handler(req, res) {
-  // Allow CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) return res.status(500).json({ error: 'API key not configured' });
 
-  const { fromCity, toCity, persona, name } = req.body;
-
+  const { fromCity, toCity, persona, name } = req.body || {};
   if (!fromCity || !toCity || !persona || !name) {
-    return res.status(400).json({ error: 'Missing required fields' });
+    return res.status(400).json({ error: 'Missing fields: ' + JSON.stringify({ fromCity, toCity, persona, name }) });
   }
 
   const personaLabel = persona === 'family' ? 'Families'
-    : persona === 'single' ? 'Singles & Young Professionals'
-    : 'Retirees';
+    : persona === 'single' ? 'Singles & Young Professionals' : 'Retirees';
 
   const prompt = `You are an expert NC relocation advisor. Someone named ${name} is moving from ${fromCity} to ${toCity}, NC. They identify as: ${personaLabel}.
 
-Generate a comprehensive magazine-style relocation guide as a JSON object. Return ONLY valid JSON with no markdown, no backticks, no preamble.
+Generate a relocation guide as a JSON object. Return ONLY valid JSON, no markdown, no backticks.
 
 {
-  "headline": "short punchy headline about this specific move",
-  "tagline": "one compelling sentence about why this move makes sense",
-  "pills": ["4 short highlight tags about this move"],
+  "headline": "short headline about this move",
+  "tagline": "one sentence about why this move makes sense",
+  "pills": ["highlight 1", "highlight 2", "highlight 3", "highlight 4"],
   "stats": [
     {"label": "Population", "value": "XXX,XXX"},
     {"label": "Median Home", "value": "$XXX,XXX"},
@@ -38,55 +33,55 @@ Generate a comprehensive magazine-style relocation guide as a JSON object. Retur
     {"label": "School Rating", "value": "X/10"},
     {"label": "Unemployment", "value": "X.X%"}
   ],
-  "city_overview": "3-4 vivid sentences about the NC destination character and vibe. Be specific.",
-  "coming_from": "2-3 sentences specifically about transitioning from their origin city. Mention real differences in cost, pace, culture.",
+  "city_overview": "3-4 sentences about the NC destination.",
+  "coming_from": "2-3 sentences about transitioning from their origin city.",
   "neighborhoods": {
     "intro": "1-2 sentences",
     "list": [
-      {"name": "Name", "vibe": "1 sentence — price range, who it is best for"},
-      {"name": "Name", "vibe": "..."},
-      {"name": "Name", "vibe": "..."},
-      {"name": "Name", "vibe": "..."}
+      {"name": "Neighborhood", "vibe": "description"},
+      {"name": "Neighborhood", "vibe": "description"},
+      {"name": "Neighborhood", "vibe": "description"},
+      {"name": "Neighborhood", "vibe": "description"}
     ]
   },
   "schools": {
-    "intro": "1-2 sentences about the overall school district quality",
-    "public": ["School Name - grades served, brief note", "School Name - ...", "School Name - ..."],
-    "private": ["School Name - brief note", "School Name - ..."],
-    "higher_ed": ["Institution - brief note"]
+    "intro": "1-2 sentences",
+    "public": ["School - note", "School - note", "School - note"],
+    "private": ["School - note", "School - note"],
+    "higher_ed": ["Institution - note"]
   },
   "hospitals": {
     "intro": "1-2 sentences",
     "list": [
-      {"name": "Hospital Name", "ranking": "US News ranking or specialty", "note": "brief note"},
-      {"name": "Hospital Name", "ranking": "...", "note": "..."}
+      {"name": "Hospital", "ranking": "ranking", "note": "note"},
+      {"name": "Hospital", "ranking": "ranking", "note": "note"}
     ]
   },
   "worship": {
     "intro": "1 sentence",
-    "list": ["Name - denomination/type", "Name - ...", "Name - ...", "Name - ...", "Name - ..."]
+    "list": ["Name - type", "Name - type", "Name - type", "Name - type", "Name - type"]
   },
   "restaurants": {
-    "intro": "1-2 sentences about the food scene",
+    "intro": "1-2 sentences",
     "categories": [
-      {"category": "Local Favorites", "picks": ["Name - cuisine, neighborhood", "Name - ...", "Name - ..."]},
-      {"category": "Fine Dining", "picks": ["Name - ...", "Name - ..."]},
-      {"category": "Casual and Family", "picks": ["Name - ...", "Name - ...", "Name - ..."]},
-      {"category": "Brunch and Coffee", "picks": ["Name - ...", "Name - ..."]}
+      {"category": "Local Favorites", "picks": ["Name - note", "Name - note", "Name - note"]},
+      {"category": "Fine Dining", "picks": ["Name - note", "Name - note"]},
+      {"category": "Casual and Family", "picks": ["Name - note", "Name - note", "Name - note"]},
+      {"category": "Brunch and Coffee", "picks": ["Name - note", "Name - note"]}
     ]
   },
-  "family_activities": ["Activity or venue - brief note", "...", "...", "...", "...", "..."],
-  "nightlife": ["Venue or district - brief note", "...", "...", "...", "..."],
-  "outdoor_recreation": ["Park or activity - brief note", "...", "...", "...", "..."],
-  "shopping": ["Mall or district - brief note", "...", "...", "..."],
+  "family_activities": ["activity - note", "activity - note", "activity - note", "activity - note", "activity - note"],
+  "nightlife": ["venue - note", "venue - note", "venue - note", "venue - note"],
+  "outdoor_recreation": ["activity - note", "activity - note", "activity - note", "activity - note"],
+  "shopping": ["place - note", "place - note", "place - note"],
   "persona_insights": {
-    "families": "3-4 sentences about family life in this NC city - schools, safety, neighborhoods, activities",
-    "singles": "3-4 sentences about young professional life - career, social scene, housing, lifestyle",
-    "retirees": "3-4 sentences about retirement quality - healthcare, community, cost, activities"
+    "families": "3-4 sentences for families",
+    "singles": "3-4 sentences for singles",
+    "retirees": "3-4 sentences for retirees"
   },
-  "denniss_take": "2-3 sentences written warmly as Dennis Fields, a 20-year NC mortgage expert. Personal and expert. Mention something specific he loves about this city and a quick mortgage tip for someone coming from their origin city.",
-  "adjustment_tips": ["One honest adjustment tip specific to this city", "...", "...", "..."],
-  "mortgage_insight": "2-3 sentences about the mortgage market in this specific NC city - price range, best loan types (FHA, USDA, VA, conventional, DPA), down payment assistance, and what buyers from their origin city should know."
+  "denniss_take": "2-3 sentences as Dennis Fields mortgage expert",
+  "adjustment_tips": ["tip 1", "tip 2", "tip 3", "tip 4"],
+  "mortgage_insight": "2-3 sentences about mortgage market in this NC city"
 }`;
 
   try {
@@ -94,35 +89,32 @@ Generate a comprehensive magazine-style relocation guide as a JSON object. Retur
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY,
+        'x-api-key': apiKey,
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-opus-4-5',
         max_tokens: 4000,
         messages: [{ role: 'user', content: prompt }]
       })
     });
 
+    const responseText = await response.text();
+
     if (!response.ok) {
-      const err = await response.text();
-      console.error('Anthropic API error:', err);
-      return res.status(500).json({ error: 'API request failed' });
+      console.error('Anthropic error status:', response.status);
+      console.error('Anthropic error body:', responseText);
+      return res.status(500).json({ error: 'Anthropic API error: ' + response.status + ' - ' + responseText });
     }
 
-    const data = await response.json();
-    const raw = data.content
-      .filter(b => b.type === 'text')
-      .map(b => b.text)
-      .join('');
-
+    const data = JSON.parse(responseText);
+    const raw = data.content.filter(b => b.type === 'text').map(b => b.text).join('');
     const clean = raw.replace(/```json|```/g, '').trim();
     const parsed = JSON.parse(clean);
-
     return res.status(200).json(parsed);
 
   } catch (err) {
-    console.error('Handler error:', err);
-    return res.status(500).json({ error: 'Failed to generate guide. Please try again.' });
+    console.error('Handler error:', err.message);
+    return res.status(500).json({ error: 'Server error: ' + err.message });
   }
 }

@@ -388,76 +388,6 @@ async function generateGuide() {
   document.getElementById('magazine').style.display = 'none';
   document.getElementById('magazine').innerHTML = '';
 
-  var personaLabel = persona === 'family' ? 'Families'
-    : persona === 'single' ? 'Singles & Young Professionals' : 'Retirees';
-
-  var prompt = `You are an expert NC relocation advisor. Someone named ${name} is moving from ${fromCity} to ${toCity}, NC. They identify as: ${personaLabel}.
-
-Generate a comprehensive magazine-style relocation guide as a JSON object. Return ONLY valid JSON with no markdown, no backticks, no preamble.
-
-{
-  "headline": "short punchy headline about this specific move",
-  "tagline": "one compelling sentence about why this move makes sense",
-  "pills": ["4 short highlight tags about this move"],
-  "stats": [
-    {"label": "Population", "value": "XXX,XXX"},
-    {"label": "Median Home", "value": "$XXX,XXX"},
-    {"label": "Cost of Living", "value": "XX% below US avg"},
-    {"label": "Avg Commute", "value": "XX min"},
-    {"label": "School Rating", "value": "X/10"},
-    {"label": "Unemployment", "value": "X.X%"}
-  ],
-  "city_overview": "3-4 vivid sentences about the NC destination character and vibe. Be specific.",
-  "coming_from": "2-3 sentences specifically about transitioning from their origin city. Mention real differences in cost, pace, culture.",
-  "neighborhoods": {
-    "intro": "1-2 sentences",
-    "list": [
-      {"name": "Name", "vibe": "1 sentence — price range, who it is best for"},
-      {"name": "Name", "vibe": "..."},
-      {"name": "Name", "vibe": "..."},
-      {"name": "Name", "vibe": "..."}
-    ]
-  },
-  "schools": {
-    "intro": "1-2 sentences about the overall school district quality",
-    "public": ["School Name - grades served, brief note", "School Name - ...", "School Name - ..."],
-    "private": ["School Name - brief note", "School Name - ..."],
-    "higher_ed": ["Institution - brief note"]
-  },
-  "hospitals": {
-    "intro": "1-2 sentences",
-    "list": [
-      {"name": "Hospital Name", "ranking": "US News ranking or specialty", "note": "brief note"},
-      {"name": "Hospital Name", "ranking": "...", "note": "..."}
-    ]
-  },
-  "worship": {
-    "intro": "1 sentence",
-    "list": ["Name - denomination/type", "Name - ...", "Name - ...", "Name - ...", "Name - ..."]
-  },
-  "restaurants": {
-    "intro": "1-2 sentences about the food scene",
-    "categories": [
-      {"category": "Local Favorites", "picks": ["Name - cuisine, neighborhood", "Name - ...", "Name - ..."]},
-      {"category": "Fine Dining", "picks": ["Name - ...", "Name - ..."]},
-      {"category": "Casual and Family", "picks": ["Name - ...", "Name - ...", "Name - ..."]},
-      {"category": "Brunch and Coffee", "picks": ["Name - ...", "Name - ..."]}
-    ]
-  },
-  "family_activities": ["Activity or venue - brief note", "...", "...", "...", "...", "..."],
-  "nightlife": ["Venue or district - brief note", "...", "...", "...", "..."],
-  "outdoor_recreation": ["Park or activity - brief note", "...", "...", "...", "..."],
-  "shopping": ["Mall or district - brief note", "...", "...", "..."],
-  "persona_insights": {
-    "families": "3-4 sentences about family life in this NC city - schools, safety, neighborhoods, activities",
-    "singles": "3-4 sentences about young professional life - career, social scene, housing, lifestyle",
-    "retirees": "3-4 sentences about retirement quality - healthcare, community, cost, activities"
-  },
-  "denniss_take": "2-3 sentences written warmly as Dennis Fields, a 20-year NC mortgage expert. Personal and expert. Mention something specific he loves about this city and a quick mortgage tip for someone coming from their origin city.",
-  "adjustment_tips": ["One honest adjustment tip specific to this city", "...", "...", "..."],
-  "mortgage_insight": "2-3 sentences about the mortgage market in this specific NC city - price range, best loan types (FHA, USDA, VA, conventional, DPA), down payment assistance, and what buyers from their origin city should know."
-}`;
-
   try {
     var resp = await fetch('/api/generate', {
       method: 'POST',
@@ -477,7 +407,7 @@ Generate a comprehensive magazine-style relocation guide as a JSON object. Retur
 
   } catch(err) {
     document.getElementById('loading-card').style.display = 'none';
-    showError('Something went wrong generating your guide. Please try again in a moment.');
+    showError('Error: ' + err.message);
     btn.disabled = false;
     btn.textContent = 'Generate My Free NC Relocation Guide';
   }

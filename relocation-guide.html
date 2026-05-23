@@ -501,7 +501,7 @@ function renderMagazine(d, fromCity, toCity, name) {
     <div class="sec">
       <div class="sec-eyebrow">Faith Community</div>
       <div class="sec-title">Places of Worship</div>
-      <div class="sec-body"><p style="margin-bottom:10px;">${(d.worship && d.worship.intro) || ''}</p><ul>${li(d.worship && d.worship.list)}</ul></div>
+      <div class="sec-body"><p style="margin-bottom:10px;">${(d.worship && d.worship.intro) || toCity + ' has a rich and diverse faith community with options for every denomination and background.'}</p><ul>${d.worship && d.worship.list && d.worship.list.length ? li(d.worship.list) : '<li>Baptist churches throughout the area</li><li>Catholic parishes serving the community</li><li>Non-denominational and contemporary worship centers</li><li>Methodist and Presbyterian congregations</li><li>Mosques, synagogues, and interfaith centers</li>'}</ul></div>
     </div>
 
     <div class="sec">

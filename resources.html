@@ -128,7 +128,7 @@
   .benefit-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
   .agent-form-card { background: var(--off-white); border: 1px solid var(--border); border-radius: 14px; padding: 32px; }
   .agent-form-card h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 22px; }
-  .ghl-agent-iframe { width: 100%; min-height: 540px; border: none; border-radius: 8px; display: block; }
+  .ghl-agent-iframe { width: 100%; min-height: 1100px; border: none; border-radius: 8px; display: block; }
   .form-disclaimer { font-size: 12px; color: var(--muted); margin-top: 14px; text-align: center; }
 
   /* ── BOTTOM CTA ── */
@@ -550,5 +550,18 @@
   calcCOL();
 </script>
 
+<script>
+// Auto-resize GHL iframe to fit content
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.type === 'form-submitted') {
+    var iframe = document.querySelector('.ghl-agent-iframe');
+    if (iframe) iframe.style.minHeight = '200px';
+  }
+  if (e.data && typeof e.data === 'object' && e.data.height) {
+    var iframe = document.querySelector('.ghl-agent-iframe');
+    if (iframe) iframe.style.minHeight = (e.data.height + 50) + 'px';
+  }
+});
+</script>
 </body>
 </html>

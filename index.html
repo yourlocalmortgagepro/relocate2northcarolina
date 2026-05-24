@@ -374,23 +374,141 @@
   </div>
 </section>
 
-<!-- LEAD CAPTURE FORM -->
+<!-- AI GUIDE CTA -->
 <section id="get-started" class="form-section">
   <div class="section-inner">
     <div class="form-wrap">
-      <div class="section-eyebrow">Free Relocation Consultation</div>
-      <h2>Let's Build Your NC Game Plan</h2>
-      <p class="form-subtitle">Tell us about your move and Dennis will personally reach out with a customized plan — mortgage options, city recommendations, and next steps.</p>
-      <div class="ghl-iframe-wrap">
-        <!-- PASTE YOUR GHL FORM IFRAME EMBED CODE BELOW -->
-        <iframe
-          src="https://api.leadconnectorhq.com/widget/form/YOUR_FORM_ID_HERE"
-          style="width:100%;min-height:640px;border:none;border-radius:8px;"
-          scrolling="no"
-          title="NC Relocation Consultation Form">
-        </iframe>
-        <!-- END GHL FORM EMBED -->
+      <div class="section-eyebrow">Free · Personalized · AI-Powered</div>
+      <h2>Get Your Custom NC Relocation Magazine</h2>
+      <p class="form-subtitle">Skip the generic forms. Tell us where you're coming from and where you want to go in NC — our AI builds you a fully personalized relocation guide in 30 seconds.</p>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:14px; margin-bottom:28px;">
+        <div style="background:var(--off-white); border:1px solid var(--border); border-radius:10px; padding:16px 14px; text-align:center;">
+          <div style="font-size:24px; margin-bottom:6px;">🏫</div>
+          <div style="font-size:13px; font-weight:700; color:var(--navy); margin-bottom:4px;">Schools Directory</div>
+          <div style="font-size:12px; color:var(--muted);">Public, private &amp; higher ed</div>
+        </div>
+        <div style="background:var(--off-white); border:1px solid var(--border); border-radius:10px; padding:16px 14px; text-align:center;">
+          <div style="font-size:24px; margin-bottom:6px;">🏥</div>
+          <div style="font-size:13px; font-weight:700; color:var(--navy); margin-bottom:4px;">Hospitals &amp; Healthcare</div>
+          <div style="font-size:12px; color:var(--muted);">Rankings &amp; specialties</div>
+        </div>
+        <div style="background:var(--off-white); border:1px solid var(--border); border-radius:10px; padding:16px 14px; text-align:center;">
+          <div style="font-size:24px; margin-bottom:6px;">🍽️</div>
+          <div style="font-size:13px; font-weight:700; color:var(--navy); margin-bottom:4px;">Restaurants &amp; Nightlife</div>
+          <div style="font-size:12px; color:var(--muted);">Local favorites &amp; fine dining</div>
+        </div>
+        <div style="background:var(--off-white); border:1px solid var(--border); border-radius:10px; padding:16px 14px; text-align:center;">
+          <div style="font-size:24px; margin-bottom:6px;">🎪</div>
+          <div style="font-size:13px; font-weight:700; color:var(--navy); margin-bottom:4px;">Annual Events &amp; Festivals</div>
+          <div style="font-size:12px; color:var(--muted);">What your city celebrates</div>
+        </div>
+        <div style="background:var(--off-white); border:1px solid var(--border); border-radius:10px; padding:16px 14px; text-align:center;">
+          <div style="font-size:24px; margin-bottom:6px;">🌡️</div>
+          <div style="font-size:13px; font-weight:700; color:var(--navy); margin-bottom:4px;">Monthly Weather Chart</div>
+          <div style="font-size:12px; color:var(--muted);">Verified high &amp; low temps</div>
+        </div>
+        <div style="background:var(--off-white); border:1px solid var(--border); border-radius:10px; padding:16px 14px; text-align:center;">
+          <div style="font-size:24px; margin-bottom:6px;">🏠</div>
+          <div style="font-size:13px; font-weight:700; color:var(--navy); margin-bottom:4px;">Mortgage Insights</div>
+          <div style="font-size:12px; color:var(--muted);">Loan options &amp; tax rates</div>
+        </div>
       </div>
+
+      <a href="relocation-guide.html" style="display:block; width:100%; background:var(--gold); color:var(--navy); padding:18px 24px; border-radius:10px; font-size:18px; font-weight:700; font-family:inherit; text-align:center; text-decoration:none; transition:opacity 0.2s;">
+        🗺️ &nbsp; Build My Free Personalized NC Guide
+      </a>
+      <p style="text-align:center; font-size:13px; color:var(--muted); margin-top:14px;">Takes 30 seconds &nbsp;·&nbsp; No credit card &nbsp;·&nbsp; Completely free</p>
+
+      <div id="home-form-fields" style="display:none;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <label style="font-size:12px; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.4px;">First Name *</label>
+            <input type="text" id="hf-fname" placeholder="John" style="border:1.5px solid var(--border); border-radius:8px; padding:11px 14px; font-size:15px; font-family:inherit; outline:none;"/>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <label style="font-size:12px; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.4px;">Last Name *</label>
+            <input type="text" id="hf-lname" placeholder="Smith" style="border:1.5px solid var(--border); border-radius:8px; padding:11px 14px; font-size:15px; font-family:inherit; outline:none;"/>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <label style="font-size:12px; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.4px;">Email *</label>
+            <input type="email" id="hf-email" placeholder="john@email.com" style="border:1.5px solid var(--border); border-radius:8px; padding:11px 14px; font-size:15px; font-family:inherit; outline:none;"/>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <label style="font-size:12px; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.4px;">Phone *</label>
+            <input type="tel" id="hf-phone" placeholder="(555) 000-0000" style="border:1.5px solid var(--border); border-radius:8px; padding:11px 14px; font-size:15px; font-family:inherit; outline:none;"/>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <label style="font-size:12px; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.4px;">Moving From *</label>
+            <input type="text" id="hf-from" placeholder="e.g. New York, NY" style="border:1.5px solid var(--border); border-radius:8px; padding:11px 14px; font-size:15px; font-family:inherit; outline:none;"/>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <label style="font-size:12px; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.4px;">Preferred NC City</label>
+            <select id="hf-city" style="border:1.5px solid var(--border); border-radius:8px; padding:11px 14px; font-size:15px; font-family:inherit; outline:none; background:white; cursor:pointer;">
+              <option value="">— Select a city —</option>
+              <option>Greensboro</option><option>Winston-Salem</option><option>High Point</option>
+              <option>Charlotte</option><option>Raleigh</option><option>Durham</option>
+              <option>Wilmington</option><option>Asheville</option><option>Fayetteville</option>
+              <option>Cary</option><option>Apex</option><option>Concord</option>
+              <option>Mooresville</option><option>Huntersville</option><option>Not Sure Yet</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <label style="font-size:12px; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.4px;">Move Timeline *</label>
+            <select id="hf-timeline" style="border:1.5px solid var(--border); border-radius:8px; padding:11px 14px; font-size:15px; font-family:inherit; outline:none; background:white; cursor:pointer;">
+              <option value="">— Select timeline —</option>
+              <option>Within 30 days</option><option>1–3 months</option>
+              <option>3–6 months</option><option>6–12 months</option>
+              <option>Just exploring for now</option>
+            </select>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <label style="font-size:12px; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.4px;">Home Budget</label>
+            <select id="hf-budget" style="border:1.5px solid var(--border); border-radius:8px; padding:11px 14px; font-size:15px; font-family:inherit; outline:none; background:white; cursor:pointer;">
+              <option value="">— Select range —</option>
+              <option>Under $200,000</option><option>$200,000 – $300,000</option>
+              <option>$300,000 – $400,000</option><option>$400,000 – $500,000</option>
+              <option>$500,000+</option><option>Not Sure Yet</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:24px;">
+          <label style="font-size:12px; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.4px;">Anything Else We Should Know?</label>
+          <textarea id="hf-message" placeholder="Tell us about your situation — first-time buyer, veteran, need down payment help, etc." style="border:1.5px solid var(--border); border-radius:8px; padding:11px 14px; font-size:15px; font-family:inherit; outline:none; min-height:90px; resize:vertical;"></textarea>
+        </div>
+        <button onclick="submitHomeForm()" style="width:100%; background:var(--gold); color:var(--navy); border:none; padding:16px; border-radius:8px; font-weight:700; font-size:17px; font-family:inherit; cursor:pointer; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+          📖 Send Me the Free NC City Guide
+        </button>
+      </div>
+
+      <div id="home-form-success" style="display:none; text-align:center; padding:48px 20px;">
+        <div style="font-size:52px; margin-bottom:16px;">📖</div>
+        <h3 style="font-family:'Playfair Display',serif; font-size:26px; color:var(--navy); margin-bottom:10px;">Your NC City Guide Is On Its Way!</h3>
+        <p style="color:var(--muted); font-size:16px; line-height:1.7;">Check your email for the full Top 20 NC City Guide — your complete relocation roadmap.<br/>Dennis will also personally follow up to answer any questions about your move.<br/><br/>Want to connect now? <a href="https://calendly.com/dennisfieldsmortgagepro" style="color:var(--gold); font-weight:700;">Book a free call here →</a></p>
+      </div>
+
+      <script>
+        function submitHomeForm() {
+          var fname    = document.getElementById('hf-fname').value.trim();
+          var lname    = document.getElementById('hf-lname').value.trim();
+          var email    = document.getElementById('hf-email').value.trim();
+          var phone    = document.getElementById('hf-phone').value.trim();
+          var from     = document.getElementById('hf-from').value.trim();
+          var timeline = document.getElementById('hf-timeline').value;
+          if (!fname || !lname || !email || !phone || !from || !timeline) {
+            alert('Please fill in all required fields before submitting.');
+            return;
+          }
+          document.getElementById('home-form-fields').style.display = 'none';
+          document.getElementById('home-form-success').style.display = 'block';
+        }
+      </script>
       <p class="form-disclaimer">All loans subject to approval. Equal Housing Lender. Dennis Fields · Movement Mortgage · NMLS #1407951</p>
     </div>
   </div>

@@ -528,8 +528,11 @@ function renderMagazine(d, fromCity, toCity, name) {
   }).join('');
 
   var restHtml = (d.restaurants && d.restaurants.categories || []).map(function(c){
-    return '<h4>' + c.category + '</h4><ul>' + li(c.picks) + '</ul>';
-  }).join('');
+    if (!c.picks || c.picks.length === 0) return '';
+    var isIntl = c.category.toLowerCase().indexOf('international') !== -1;
+    var catColor = isIntl ? 'style="color:var(--gold);"' : '';
+    return '<h4 ' + catColor + '>' + c.category + '</h4><ul>' + li(c.picks) + '</ul>';
+  }).filter(Boolean).join('');
 
   var mag = document.getElementById('magazine');
   mag.style.display = 'block';
@@ -589,8 +592,12 @@ function renderMagazine(d, fromCity, toCity, name) {
 
     <div class="sec">
       <div class="sec-eyebrow">Food Scene</div>
-      <div class="sec-title">Restaurants & Dining</div>
-      <div class="sec-body"><p style="margin-bottom:10px;">${(d.restaurants && d.restaurants.intro) || ''}</p>${restHtml}</div>
+      <div class="sec-title">Restaurants & Dining in ${toCity}</div>
+      <div class="sec-body">
+        <p style="margin-bottom:14px;">${(d.restaurants && d.restaurants.intro) || ''}</p>
+        <p style="font-size:12px; color:var(--muted); margin-bottom:16px; font-style:italic;">Top 3 establishments per category · Ranked by Google rating &amp; local reputation · Within 10 miles</p>
+        ${restHtml}
+      </div>
     </div>
 
     <div class="sec">

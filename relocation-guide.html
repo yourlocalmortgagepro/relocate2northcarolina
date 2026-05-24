@@ -234,6 +234,8 @@ footer strong { color: rgba(255,255,255,0.78); }
   .cta-strip { flex-direction: column; text-align: center; }
 }
 </style>
+<!-- GHL Form Script -->
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
 </head>
 <body>
 
@@ -401,6 +403,54 @@ async function generateGuide() {
   document.getElementById('loading-card').style.display = 'block';
   document.getElementById('magazine').style.display = 'none';
   document.getElementById('magazine').innerHTML = '';
+
+  // Silently fire lead data to GHL via hidden form post
+  var personaLabel = persona === 'family' ? 'Family'
+    : persona === 'single' ? 'Single / Young Professional' : 'Retiree';
+
+  try {
+    var ghlForm = document.createElement('form');
+    ghlForm.method = 'POST';
+    ghlForm.action = 'https://api.leadconnectorhq.com/widget/form/SzAYlTnwzBcUak6YV61A';
+    ghlForm.target = 'ghl-silent-frame';
+    ghlForm.style.display = 'none';
+
+    var fields = {
+      'first_name': name,
+      'email': document.getElementById('g-email').value.trim(),
+      'phone': document.getElementById('g-phone').value.trim(),
+      'moving_from': fromCity,
+      'moving_to_nc': toCity,
+      'persona': personaLabel,
+      'formId': 'SzAYlTnwzBcUak6YV61A'
+    };
+
+    for (var key in fields) {
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = fields[key];
+      ghlForm.appendChild(input);
+    }
+
+    // Create a hidden iframe target so the form submits silently
+    var silentFrame = document.getElementById('ghl-silent-frame');
+    if (!silentFrame) {
+      silentFrame = document.createElement('iframe');
+      silentFrame.name = 'ghl-silent-frame';
+      silentFrame.id = 'ghl-silent-frame';
+      silentFrame.style.display = 'none';
+      document.body.appendChild(silentFrame);
+    }
+
+    document.body.appendChild(ghlForm);
+    ghlForm.submit();
+    setTimeout(function() { 
+      if (ghlForm.parentNode) ghlForm.parentNode.removeChild(ghlForm); 
+    }, 3000);
+  } catch(ghlErr) {
+    // Silent fail - never interrupt guide generation
+  }
 
   try {
     var resp = await fetch('/api/generate', {
@@ -742,5 +792,26 @@ function resetGuide() {
 }
 </script>
 
+<!-- Hidden GHL Form for lead capture - invisible to visitor -->
+<div style="position:absolute; left:-9999px; top:-9999px; width:1px; height:1px; overflow:hidden;" aria-hidden="true">
+  <iframe
+    src="https://api.leadconnectorhq.com/widget/form/SzAYlTnwzBcUak6YV61A"
+    style="width:100%;height:100%;border:none;"
+    id="inline-SzAYlTnwzBcUak6YV61A"
+    data-layout="{'id':'INLINE'}"
+    data-trigger-type="alwaysShow"
+    data-trigger-value=""
+    data-activation-type="alwaysActivated"
+    data-activation-value=""
+    data-deactivation-type="neverDeactivate"
+    data-deactivation-value=""
+    data-form-name="nc-relocation-guide"
+    data-height="700"
+    data-layout-iframe-id="inline-SzAYlTnwzBcUak6YV61A"
+    data-form-id="SzAYlTnwzBcUak6YV61A"
+    title="nc-relocation-guide"
+    id="ghl-hidden-frame">
+  </iframe>
+</div>
 </body>
 </html>

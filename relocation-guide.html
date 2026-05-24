@@ -469,6 +469,22 @@ async function generateGuide() {
     if (d.error) { throw new Error(d.error); }
     renderMagazine(d, fromCity, toCity, name);
 
+    // Send personalized guide to their email in background
+    fetch('/api/email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName: name,
+        email: document.getElementById('g-email').value.trim(),
+        fromCity: fromCity,
+        toCity: toCity,
+        persona: persona,
+        guideData: d
+      })
+    }).catch(function() {
+      // Silent fail - don't interrupt guide display if email fails
+    });
+
   } catch(err) {
     document.getElementById('loading-card').style.display = 'none';
     showError('Error: ' + err.message);

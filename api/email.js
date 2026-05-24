@@ -53,9 +53,13 @@ export default async function handler(req, res) {
     `<li style="margin-bottom:6px;font-size:13px;color:#5A5A5A;font-family:Arial,sans-serif;"><strong>${h.name}</strong>${h.ranking ? ` (${h.ranking})` : ''} — ${h.note}</li>`
   ).join('');
 
-  const restaurantsHtml = (guideData.restaurants?.categories || []).map(cat =>
-    `<strong style="color:#0C2340;">${cat.category}</strong>${listItems(cat.picks)}`
-  ).join('');
+  const restaurantsHtml = (guideData.restaurants?.categories || [])
+    .filter(cat => cat.picks && cat.picks.length > 0)
+    .map(cat => {
+      const isIntl = cat.category.toLowerCase().includes('international');
+      const titleColor = isIntl ? '#C8952A' : '#0C2340';
+      return `<strong style="color:${titleColor};">${cat.category}</strong>${listItems(cat.picks)}`;
+    }).join('');
 
   const personaCards = `
   <table width="100%" cellpadding="0" cellspacing="8" style="margin-top:12px;">

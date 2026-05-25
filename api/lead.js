@@ -97,6 +97,38 @@ export default async function handler(req, res) {
     }
     console.log('GHL Result:', JSON.stringify(results.ghl));
 
+    // ── STEP 1B: ADD TAGS SEPARATELY ─────────────────────────────
+    if (contactId) {
+      try {
+        const allTags = [
+          'nc-relocation-website',
+          source === 'relocation-guide' ? 'nc-relocation-guide-lead' : 'nc-agent-match-lead',
+          source === 'agent-match' ? 'hot-lead' : null,
+          source === 'agent-match' ? 'agent-requested' : null,
+          source === 'agent-match' ? 'needs-agent-intro' : null,
+          source === 'agent-match' ? 'relocating-to-nc' : null,
+          personaLabel ? `persona-${personaLabel.toLowerCase().replace(/\s+/g, '-')}` : null,
+          toCity ? `destination-${toCity.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g,'')}` : null,
+          ...(extraTags || [])
+        ].filter(Boolean);
+
+        const tagRes = await fetch(
+          `https://services.leadconnectorhq.com/contacts/${contactId}/tags`,
+          {
+            method: 'POST',
+            headers: GHL_HEADERS,
+            body: JSON.stringify({ tags: allTags })
+          }
+        );
+        const tagData = await tagRes.json();
+        results.tags = { status: tagRes.status, tags: allTags, response: tagData };
+        console.log('GHL Tags Result:', JSON.stringify(results.tags));
+      } catch(tagErr) {
+        results.tags = { error: tagErr.message };
+        console.log('GHL Tags Error:', tagErr.message);
+      }
+    }
+
   } catch (err) {
     results.ghl = { error: err.message };
   }

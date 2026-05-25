@@ -404,53 +404,9 @@ async function generateGuide() {
   document.getElementById('magazine').style.display = 'none';
   document.getElementById('magazine').innerHTML = '';
 
-  // Silently fire lead data to GHL via hidden form post
-  var personaLabel = persona === 'family' ? 'Family'
-    : persona === 'single' ? 'Single / Young Professional' : 'Retiree';
-
-  try {
-    var ghlForm = document.createElement('form');
-    ghlForm.method = 'POST';
-    ghlForm.action = 'https://api.leadconnectorhq.com/widget/form/SzAYlTnwzBcUak6YV61A';
-    ghlForm.target = 'ghl-silent-frame';
-    ghlForm.style.display = 'none';
-
-    var fields = {
-      'first_name': name,
-      'email': document.getElementById('g-email').value.trim(),
-      'phone': document.getElementById('g-phone').value.trim(),
-      'moving_from': fromCity,
-      'moving_to_nc': toCity,
-      'persona': personaLabel,
-      'formId': 'SzAYlTnwzBcUak6YV61A'
-    };
-
-    for (var key in fields) {
-      var input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = key;
-      input.value = fields[key];
-      ghlForm.appendChild(input);
-    }
-
-    // Create a hidden iframe target so the form submits silently
-    var silentFrame = document.getElementById('ghl-silent-frame');
-    if (!silentFrame) {
-      silentFrame = document.createElement('iframe');
-      silentFrame.name = 'ghl-silent-frame';
-      silentFrame.id = 'ghl-silent-frame';
-      silentFrame.style.display = 'none';
-      document.body.appendChild(silentFrame);
-    }
-
-    document.body.appendChild(ghlForm);
-    ghlForm.submit();
-    setTimeout(function() { 
-      if (ghlForm.parentNode) ghlForm.parentNode.removeChild(ghlForm); 
-    }, 3000);
-  } catch(ghlErr) {
-    // Silent fail - never interrupt guide generation
-  }
+  // Fire lead to GHL + send email via unified serverless function
+  var emailVal = document.getElementById('g-email').value.trim();
+  var phoneVal = document.getElementById('g-phone').value.trim();
 
   try {
     var resp = await fetch('/api/generate', {
@@ -469,20 +425,23 @@ async function generateGuide() {
     if (d.error) { throw new Error(d.error); }
     renderMagazine(d, fromCity, toCity, name);
 
-    // Send personalized guide to their email in background
-    fetch('/api/email', {
+    // Send lead to GHL and email guide to visitor
+    fetch('/api/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         firstName: name,
-        email: document.getElementById('g-email').value.trim(),
+        lastName: '',
+        email: emailVal,
+        phone: phoneVal,
         fromCity: fromCity,
         toCity: toCity,
         persona: persona,
+        source: 'relocation-guide',
         guideData: d
       })
     }).catch(function() {
-      // Silent fail - don't interrupt guide display if email fails
+      // Silent fail - never interrupt guide display
     });
 
   } catch(err) {

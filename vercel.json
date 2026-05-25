@@ -2,7 +2,7 @@
   "version": 2,
   "routes": [
     { "src": "/api/generate", "dest": "/api/generate.js" },
-    { "src": "/api/email", "dest": "/api/email.js" },
+    { "src": "/api/lead", "dest": "/api/lead.js" },
     { "src": "/resources", "dest": "/resources.html" },
     { "src": "/relocation-guide", "dest": "/relocation-guide.html" },
     { "src": "/", "dest": "/index.html" }

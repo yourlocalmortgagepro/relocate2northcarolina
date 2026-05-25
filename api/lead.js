@@ -52,8 +52,16 @@ export default async function handler(req, res) {
       })
     });
 
-    const ghlData = await ghlRes.json();
-    results.ghl = { status: ghlRes.status, contactId: ghlData?.contact?.id || ghlData?.id || null, error: ghlData?.message || null };
+    const ghlText = await ghlRes.text();
+    let ghlData = {};
+    try { ghlData = JSON.parse(ghlText); } catch(e) { ghlData = { raw: ghlText }; }
+    results.ghl = { 
+      status: ghlRes.status, 
+      contactId: ghlData?.contact?.id || ghlData?.id || null, 
+      error: ghlData?.message || ghlData?.error || null,
+      raw: ghlData
+    };
+    console.log('GHL Response:', JSON.stringify(results.ghl));
 
   } catch (err) {
     results.ghl = { error: err.message };

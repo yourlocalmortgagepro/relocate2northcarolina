@@ -440,8 +440,12 @@ async function generateGuide() {
         source: 'relocation-guide',
         guideData: d
       })
-    }).catch(function() {
-      // Silent fail - never interrupt guide display
+    }).then(function(r) { 
+      return r.json(); 
+    }).then(function(result) {
+      console.log('Lead API result:', JSON.stringify(result));
+    }).catch(function(err) {
+      console.log('Lead API error:', err.message);
     });
 
   } catch(err) {

@@ -38,30 +38,59 @@ export default async function handler(req, res) {
     };
 
     const GHL_LOCATION_ID = 'EGPJsvGiNF90gj9kNK7X';
-
-    const ghlRes = await fetch(`https://services.leadconnectorhq.com/contacts/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.GHL_API_KEY}`,
-        'Version': '2021-07-28'
-      },
-      body: JSON.stringify({
-        ...ghlPayload,
-        locationId: GHL_LOCATION_ID
-      })
-    });
-
-    const ghlText = await ghlRes.text();
-    let ghlData = {};
-    try { ghlData = JSON.parse(ghlText); } catch(e) { ghlData = { raw: ghlText }; }
-    results.ghl = { 
-      status: ghlRes.status, 
-      contactId: ghlData?.contact?.id || ghlData?.id || null, 
-      error: ghlData?.message || ghlData?.error || null,
-      raw: ghlData
+    const GHL_HEADERS = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.GHL_API_KEY}`,
+      'Version': '2021-07-28'
     };
-    console.log('GHL Response:', JSON.stringify(results.ghl));
+
+    // First try to find existing contact by email
+    let contactId = null;
+    try {
+      const searchRes = await fetch(
+        `https://services.leadconnectorhq.com/contacts/?locationId=${GHL_LOCATION_ID}&email=${encodeURIComponent(ghlPayload.email)}`,
+        { method: 'GET', headers: GHL_HEADERS }
+      );
+      const searchData = await searchRes.json();
+      if (searchData?.contacts?.length > 0) {
+        contactId = searchData.contacts[0].id;
+      }
+    } catch(e) { console.log('Search error:', e.message); }
+
+    let ghlData = {};
+    if (contactId) {
+      // UPDATE existing contact
+      const updateRes = await fetch(
+        `https://services.leadconnectorhq.com/contacts/${contactId}`,
+        {
+          method: 'PUT',
+          headers: GHL_HEADERS,
+          body: JSON.stringify({
+            ...ghlPayload,
+            locationId: GHL_LOCATION_ID
+          })
+        }
+      );
+      ghlData = await updateRes.json();
+      results.ghl = { status: updateRes.status, contactId, action: 'updated', error: ghlData?.message || null };
+    } else {
+      // CREATE new contact
+      const createRes = await fetch(
+        `https://services.leadconnectorhq.com/contacts/`,
+        {
+          method: 'POST',
+          headers: GHL_HEADERS,
+          body: JSON.stringify({
+            ...ghlPayload,
+            locationId: GHL_LOCATION_ID
+          })
+        }
+      );
+      ghlData = await createRes.json();
+      contactId = ghlData?.contact?.id || ghlData?.id || null;
+      results.ghl = { status: createRes.status, contactId, action: 'created', error: ghlData?.message || null };
+    }
+    console.log('GHL Result:', JSON.stringify(results.ghl));
 
   } catch (err) {
     results.ghl = { error: err.message };

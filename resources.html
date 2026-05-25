@@ -415,23 +415,106 @@
       <p class="form-disclaimer" style="margin-top:16px;">All loans subject to approval. Equal Housing Lender. Dennis Fields · Movement Mortgage · NMLS #1407951</p>
 
       <script>
-        // Listen for GHL form submission and show custom thank you
+        var agentFormSubmitted = false;
+
+        function fireAgentLead() {
+          if (agentFormSubmitted) return;
+          agentFormSubmitted = true;
+
+          // Get values from the GHL form fields if accessible, otherwise use defaults
+          var cityVal   = '';
+          var budgetVal = '';
+          var nameVal   = '';
+          var emailVal  = '';
+          var phoneVal  = '';
+
+          try {
+            var iframe = document.getElementById('agent-match-iframe');
+            var iDoc = iframe.contentDocument || iframe.contentWindow.document;
+            // Try to pull field values from the GHL form
+            var nameField  = iDoc.querySelector('input[name*="first"], input[placeholder*="First"], input[placeholder*="Name"]');
+            var emailField = iDoc.querySelector('input[type="email"], input[name*="email"]');
+            var phoneField = iDoc.querySelector('input[type="tel"], input[name*="phone"]');
+            var cityField  = iDoc.querySelector('input[name*="city"], input[placeholder*="city"], input[placeholder*="City"]');
+            var budgetField= iDoc.querySelector('select[name*="budget"], input[name*="budget"]');
+            if (nameField)   nameVal   = nameField.value   || '';
+            if (emailField)  emailVal  = emailField.value  || '';
+            if (phoneField)  phoneVal  = phoneField.value  || '';
+            if (cityField)   cityVal   = cityField.value   || '';
+            if (budgetField) budgetVal = budgetField.value || '';
+          } catch(e) {}
+
+          // Build budget tag slug
+          var budgetTag = budgetVal
+            ? 'budget-' + budgetVal.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+            : '';
+          var cityTag = cityVal
+            ? 'destination-' + cityVal.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+            : '';
+
+          // Fire to our lead API to add tags in GHL
+          fetch('/api/lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              firstName: nameVal || 'Agent Match',
+              lastName: '',
+              email: emailVal || '',
+              phone: phoneVal || '',
+              fromCity: '',
+              toCity: cityVal || '',
+              persona: '',
+              source: 'agent-match',
+              extraTags: [
+                'nc-agent-match-lead',
+                'agent-requested',
+                'hot-lead',
+                'relocating-to-nc',
+                'needs-agent-intro',
+                cityTag,
+                budgetTag
+              ].filter(Boolean)
+            })
+          }).then(function(r) {
+            return r.json();
+          }).then(function(result) {
+            console.log('Agent Match Lead:', JSON.stringify(result));
+          }).catch(function(err) {
+            console.log('Agent lead error:', err.message);
+          });
+
+          // Show custom thank you
+          document.getElementById('agent-form-wrap').style.display = 'none';
+          document.getElementById('agent-thank-you').style.display = 'block';
+        }
+
+        // Listen for GHL form submission message
         window.addEventListener('message', function(e) {
-          if (e.data && (e.data.type === 'form-submitted' || e.data === 'form-submitted' || 
-              (typeof e.data === 'object' && e.data.event === 'form_submitted'))) {
-            document.getElementById('agent-form-wrap').style.display = 'none';
-            document.getElementById('agent-thank-you').style.display = 'block';
+          if (e.data && (
+            e.data.type === 'form-submitted' ||
+            e.data === 'form-submitted' ||
+            (typeof e.data === 'object' && e.data.event === 'form_submitted') ||
+            (typeof e.data === 'object' && e.data.type === 'gtm.formSubmit')
+          )) {
+            fireAgentLead();
           }
         });
 
-        // Fallback: check if iframe shows thank you content
-        setInterval(function() {
+        // Fallback: detect GHL thank you screen inside iframe
+        var checkCount = 0;
+        var checkInterval = setInterval(function() {
+          checkCount++;
+          if (checkCount > 120 || agentFormSubmitted) { clearInterval(checkInterval); return; }
           try {
             var iframe = document.getElementById('agent-match-iframe');
-            var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            if (iframeDoc && iframeDoc.body && iframeDoc.body.innerText.includes('appreciate')) {
-              document.getElementById('agent-form-wrap').style.display = 'none';
-              document.getElementById('agent-thank-you').style.display = 'block';
+            var iDoc = iframe.contentDocument || iframe.contentWindow.document;
+            if (iDoc && iDoc.body && (
+              iDoc.body.innerText.includes('appreciate') ||
+              iDoc.body.innerText.includes('Thank you') ||
+              iDoc.body.innerText.includes('submitted')
+            )) {
+              clearInterval(checkInterval);
+              fireAgentLead();
             }
           } catch(e) {}
         }, 1000);

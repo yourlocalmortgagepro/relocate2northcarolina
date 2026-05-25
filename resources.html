@@ -391,13 +391,51 @@
 
     <div class="agent-form-card">
       <h3>🏡 Request Your Agent Match</h3>
-      <iframe
-        src="https://api.leadconnectorhq.com/widget/form/bjID0Efk5FTnwF2Yppz0"
-        class="ghl-agent-iframe"
-        scrolling="no"
-        title="Agent Referral Request Form">
-      </iframe>
+      <div id="agent-form-wrap">
+        <iframe
+          src="https://api.leadconnectorhq.com/widget/form/bjID0Efk5FTnwF2Yppz0"
+          class="ghl-agent-iframe"
+          scrolling="no"
+          id="agent-match-iframe"
+          title="Agent Referral Request Form">
+        </iframe>
+      </div>
+
+      <div id="agent-thank-you" style="display:none; text-align:center; padding:48px 24px; background:var(--off-white); border-radius:12px; margin-top:8px;">
+        <div style="font-size:52px; margin-bottom:16px;">🏡</div>
+        <h3 style="font-family:'Playfair Display',serif; font-size:26px; color:var(--navy); margin-bottom:12px;">Your Agent Match Request Was Received!</h3>
+        <p style="font-size:16px; color:var(--muted); line-height:1.75; max-width:480px; margin:0 auto 24px;">
+          Dennis will personally introduce you to a trusted, vetted NC real estate agent within <strong style="color:var(--navy);">1 business day</strong>. Keep an eye on your phone and email — your match is on the way!
+        </p>
+        <p style="font-size:15px; color:var(--navy); font-weight:600; margin-bottom:20px;">Want to connect sooner?</p>
+        <a href="https://calendly.com/dennisfieldsmortgagepro" style="display:inline-block; background:var(--gold); color:var(--navy); padding:14px 30px; border-radius:8px; font-weight:700; font-size:16px; text-decoration:none; margin-right:10px;">📅 Book a Free Call with Dennis</a>
+        <a href="https://dennisfieldsmortgagepro.com" style="display:inline-block; border:1.5px solid var(--navy); color:var(--navy); padding:14px 30px; border-radius:8px; font-weight:600; font-size:16px; text-decoration:none;">Apply for a Mortgage →</a>
+      </div>
+
       <p class="form-disclaimer" style="margin-top:16px;">All loans subject to approval. Equal Housing Lender. Dennis Fields · Movement Mortgage · NMLS #1407951</p>
+
+      <script>
+        // Listen for GHL form submission and show custom thank you
+        window.addEventListener('message', function(e) {
+          if (e.data && (e.data.type === 'form-submitted' || e.data === 'form-submitted' || 
+              (typeof e.data === 'object' && e.data.event === 'form_submitted'))) {
+            document.getElementById('agent-form-wrap').style.display = 'none';
+            document.getElementById('agent-thank-you').style.display = 'block';
+          }
+        });
+
+        // Fallback: check if iframe shows thank you content
+        setInterval(function() {
+          try {
+            var iframe = document.getElementById('agent-match-iframe');
+            var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            if (iframeDoc && iframeDoc.body && iframeDoc.body.innerText.includes('appreciate')) {
+              document.getElementById('agent-form-wrap').style.display = 'none';
+              document.getElementById('agent-thank-you').style.display = 'block';
+            }
+          } catch(e) {}
+        }, 1000);
+      </script>
     </div>
   </div>
 

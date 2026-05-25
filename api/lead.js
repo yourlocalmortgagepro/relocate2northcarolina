@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { firstName, lastName, email, phone, fromCity, toCity, persona, source, guideData } = req.body || {};
+  const { firstName, lastName, email, phone, fromCity, toCity, persona, source, guideData, extraTags } = req.body || {};
 
   const results = { ghl: null, email: null };
 
@@ -26,8 +26,13 @@ export default async function handler(req, res) {
       tags: [
         'nc-relocation-website',
         source === 'relocation-guide' ? 'nc-relocation-guide-lead' : 'nc-agent-match-lead',
+        source === 'agent-match' ? 'hot-lead' : null,
+        source === 'agent-match' ? 'agent-requested' : null,
+        source === 'agent-match' ? 'needs-agent-intro' : null,
+        source === 'agent-match' ? 'relocating-to-nc' : null,
         personaLabel ? `persona-${personaLabel.toLowerCase().replace(/\s+/g, '-')}` : '',
         toCity ? `destination-${toCity.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-')}` : '',
+        ...(extraTags || []),
       ].filter(Boolean),
       customFields: [
         { key: 'moving_from', field_value: fromCity || '' },
